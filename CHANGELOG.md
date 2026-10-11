@@ -7,9 +7,9 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) ; ce p
 
 ### Ajouté
 - **Couverture de tests des commandes CLI** (`tests/unit/test_cli.py`, 18 tests) : les 11 points
-  d'entrée (`cif-generate`, `cif-train`, `cif-evaluate`, `cif-decision`, `cif-export-model`,
-  `cif-export-lc-model`, `cif-ingest-lc`, `cif-benchmark`, `cif-promote`/`cif-rollback`,
-  `cif-replay-monitoring`, `cif-register-model`) étaient jusqu'ici exercés uniquement à travers
+  d'entrée (`credlens-generate`, `credlens-train`, `credlens-evaluate`, `credlens-decision`, `credlens-export-model`,
+  `credlens-export-lc-model`, `credlens-ingest-lc`, `credlens-benchmark`, `credlens-promote`/`credlens-rollback`,
+  `credlens-replay-monitoring`, `credlens-register-model`) étaient jusqu'ici exercés uniquement à travers
   leur logique métier sous-jacente, jamais via leur câblage CLI réel (options → fonctions
   appelées). Testés avec `click.testing.CliRunner`, dépendances lourdes (MLflow, disque)
   isolées par `monkeypatch`. Fait passer la couverture globale de 74 % à 87 %.
@@ -22,7 +22,7 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) ; ce p
 ## [1.2.0] — 2026-09-23
 
 ### Ajouté
-- **Rejeu de monitoring sur historique** (`src/monitoring/replay.py`, `cif-replay-monitoring`,
+- **Rejeu de monitoring sur historique** (`src/monitoring/replay.py`, `credlens-replay-monitoring`,
   asset Dagster `lc_monitoring_replay`) : dernière pièce scientifique identifiée depuis le début
   de la validation Lending Club. Rejoue 24 mois de dérive (PSI) et 12 mois de performance réelle
   retardée sur le champion enregistré. **Résultat réel, non provoqué** : 4 mois sur 24
@@ -41,7 +41,7 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) ; ce p
 - **Rate limiting partagé via Redis** (`RedisRateLimiter`, `src/api/middleware.py`) : le
   limiteur par défaut compte en mémoire du processus, correct pour une seule instance (Render
   aujourd'hui) mais silencieusement incorrect dès plusieurs réplicas — chaque processus compte
-  séparément, le quota réel devient `rate_per_minute × nb_instances`. `CIF_REDIS_URL` bascule
+  séparément, le quota réel devient `rate_per_minute × nb_instances`. `CREDLENS_REDIS_URL` bascule
   automatiquement sur un compteur partagé (fenêtre glissante atomique par script Lua). Dégrade
   proprement si Redis est injoignable au démarrage (repli sur le comportement mono-instance,
   jamais un refus de démarrer). Vérifié avec deux conteneurs Docker distincts derrière un même
@@ -62,7 +62,7 @@ déployé et vérifié de bout en bout — pas seulement testé en local.
   champion retenu seulement si l'écart d'AUC est démontré statistiquement (IC95% apparié). Voir
   `docs/validation/lending-club-benchmark.md` et les ADR `docs/adr/0001` à `0003`.
 - **Gouvernance de modèle par alias MLflow** (`champion`/`previous`, `src/models/promotion.py`) :
-  porte de qualité objective (seuils AUC/ECE), rollback en une commande (`cif-rollback`),
+  porte de qualité objective (seuils AUC/ECE), rollback en une commande (`credlens-rollback`),
   remplace les stages MLflow dépréciés. Réutilisée à l'identique pour les deux modèles servis.
 - **Nouvel endpoint `/v1/lending-club/score`** : sert le champion validé, décision à 3 niveaux
   autour d'un seuil optimisé par coût (`evaluation/thresholds.py`, jamais posé à la main),
@@ -71,7 +71,7 @@ déployé et vérifié de bout en bout — pas seulement testé en local.
   mélangé avec `/v1/predict` (pilote CIF synthétique).
 - **Orchestration Dagster du pipeline Lending Club** (`lc_raw_available` → `lc_interim` →
   `lc_features` → `lc_benchmark`), visible dans l'UI aux côtés du pipeline synthétique existant.
-- **Déploiement public réel et vérifié** : https://cif-credit-intelligence.onrender.com — image
+- **Déploiement public réel et vérifié** : https://credlens.onrender.com — image
   Docker durcie (utilisateur non privilégié, secrets de production obligatoires, refusés s'ils
   restent à leur valeur par défaut), testée en conditions réelles (build, démarrage, appels HTTP
   contre les deux modèles) avant toute mise en ligne.

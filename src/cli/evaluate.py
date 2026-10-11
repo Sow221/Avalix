@@ -1,4 +1,4 @@
-"""CLI : cif-evaluate — audit complet (Phase B/C : bootstrap, robustesse, fairness, ablation)."""
+"""CLI : credlens-evaluate — audit complet (Phase B/C : bootstrap, robustesse, fairness, ablation)."""
 
 from __future__ import annotations
 

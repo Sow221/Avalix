@@ -1,6 +1,6 @@
-"""CLI : cif-export-model — exporte un modèle autonome (sans registry MLflow) pour Docker/HF Spaces.
+"""CLI : credlens-export-model — exporte un modèle autonome (sans registry MLflow) pour Docker/HF Spaces.
 
-Contrairement à `cif-register-model` (registry MLflow + model card, nécessite un tracking
+Contrairement à `credlens-register-model` (registry MLflow + model card, nécessite un tracking
 server), cette commande produit un dossier MLflow "flavor" autosuffisant (``deploy/model/``)
 chargeable directement par ``mlflow.sklearn.load_model(path)`` sans aucune dépendance réseau —
 c'est l'artefact "cuit" dans l'image Docker de l'API (voir ``deploy/huggingface/Dockerfile``).

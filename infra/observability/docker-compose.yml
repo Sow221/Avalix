@@ -4,14 +4,14 @@ version: "3.8"
 # Usage : docker compose -f infra/observability/docker-compose.yml up
 services:
   api:
-    image: ghcr.io/sow221/cif-credit-intelligence/api:latest
+    image: ghcr.io/sow221/credlens/api:latest
     environment:
-      - CIF_MODEL_URI=/app/model
+      - CREDLENS_MODEL_URI=/app/model
       - PORT=8000
     ports:
       - "8000:8000"
     networks:
-      - cif
+      - credlens
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/v1/health')"]
       interval: 30s
@@ -25,7 +25,7 @@ services:
     ports:
       - "9090:9090"
     networks:
-      - cif
+      - credlens
 
   grafana:
     image: grafana/grafana:latest
@@ -38,10 +38,10 @@ services:
     ports:
       - "3000:3000"
     networks:
-      - cif
+      - credlens
 
 networks:
-  cif:
+  credlens:
 
 volumes:
   grafana-data:

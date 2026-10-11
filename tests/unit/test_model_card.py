@@ -31,7 +31,7 @@ class TestModelCard:
         with pytest.raises(ModelCardRequirementError):
             ModelCard(
                 ModelCardMetadata(
-                    model_name="cif_credit_official",
+                    model_name="credlens_pilot",
                     version="1.0.0",
                     model_type="classification_binaire",
                     algorithm="xgboost",
@@ -46,7 +46,7 @@ class TestModelCard:
 
     def test_build_and_export_json_and_markdown(self, tmp_path):
         card = build_model_card(
-            model_name="cif_credit_official",
+            model_name="credlens_pilot",
             version="1.0.0",
             algorithm="xgboost + isotonic",
             owner="TELQAN",
@@ -65,7 +65,7 @@ class TestModelCard:
         assert json_path.exists()
         assert md_path.exists()
         data = json.loads(json_path.read_text(encoding="utf-8"))
-        assert data["name_version"] == "cif_credit_official:1.0.0"
+        assert data["name_version"] == "credlens_pilot:1.0.0"
         assert data["training_metrics"]["roc_auc"] == 0.83
         text = md_path.read_text(encoding="utf-8")
         assert "Model Card" in text
@@ -90,7 +90,7 @@ class TestRegistry:
     def test_find_official_artifact_by_env(self, tmp_path, monkeypatch):
         artifact = tmp_path / "MODEL_OFFICIAL_CALIBRATED.joblib"
         artifact.write_bytes(b"stub")
-        monkeypatch.setenv("CIF_MODEL_ARTIFACT", str(tmp_path))
+        monkeypatch.setenv("CREDLENS_MODEL_ARTIFACT", str(tmp_path))
         found = find_official_artifact()
         assert found is not None
         assert found == artifact
@@ -115,8 +115,8 @@ class TestRegistry:
             stage="Staging",
             model_card_dir=tmp_path / "cards",
         )
-        assert registered.model_name == "cif_credit_official"
+        assert registered.model_name == "credlens_pilot"
         assert registered.version == "9.9.9"
-        assert (tmp_path / "cards" / "cif_credit_official_9.9.9.json").exists()
-        assert (tmp_path / "cards" / "cif_credit_official_9.9.9.md").exists()
-        assert version_exists("cif_credit_official", "9.9.9")
+        assert (tmp_path / "cards" / "credlens_pilot_9.9.9.json").exists()
+        assert (tmp_path / "cards" / "credlens_pilot_9.9.9.md").exists()
+        assert version_exists("credlens_pilot", "9.9.9")

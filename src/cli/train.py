@@ -1,4 +1,4 @@
-"""CLI : cif-train — entraînement XGBoost, tracking MLflow et registration."""
+"""CLI : credlens-train — entraînement XGBoost, tracking MLflow et registration."""
 
 from __future__ import annotations
 
@@ -44,7 +44,7 @@ def main(
 
     if register:
         client = mlflow.tracking.MlflowClient()
-        decision = promote_if_better(client, "cif_credit_official", latest_version(client, "cif_credit_official"))
+        decision = promote_if_better(client, "credlens_pilot", latest_version(client, "credlens_pilot"))
         logger.info("cli.train.promotion", promoted=decision.promoted, reason=decision.reason)
 
     logger.info(

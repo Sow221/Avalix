@@ -8,7 +8,7 @@ from sklearn.linear_model import LogisticRegression
 
 from models.promotion import CHAMPION, PREVIOUS, PromotionGates, current_champion, promote_if_better, rollback
 
-NAME = "cif_test_model"
+NAME = "credlens_test_model"
 
 
 @pytest.fixture()

@@ -1,4 +1,4 @@
-"""CLI : cif-replay-monitoring — rejoue la surveillance sur l'historique Lending Club, tracé MLflow."""
+"""CLI : credlens-replay-monitoring — rejoue la surveillance sur l'historique Lending Club, tracé MLflow."""
 
 from __future__ import annotations
 

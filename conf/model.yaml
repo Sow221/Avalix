@@ -18,7 +18,7 @@ model:
     cv: 3
   artifacts_dir: data/artifacts
   mlflow_tracking_uri: sqlite:///mlruns.db
-  mlflow_experiment: cif_credit_intelligence
+  mlflow_experiment: credlens
   ablation_families:
     - profile_income
     - savings

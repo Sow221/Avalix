@@ -1,4 +1,4 @@
-"""CLI : cif-export-lc-model — exporte le champion Lending Club pour Docker/HF Spaces.
+"""CLI : credlens-export-lc-model — exporte le champion Lending Club pour Docker/HF Spaces.
 
 Copie l'artefact pyfunc déjà enregistré (``models:/lending_club_champion@champion``) en dossier
 autonome, chargeable sans serveur MLflow (``mlflow.pyfunc.load_model(chemin_local)``). Le seuil

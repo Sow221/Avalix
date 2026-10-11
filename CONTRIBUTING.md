@@ -1,4 +1,4 @@
-# Contribuer à CIF Credit Intelligence
+# Contribuer à CredLens
 
 Merci de vouloir contribuer. Ce document explique comment installer le projet, ce qui est
 attendu d'une Pull Request, et — le plus important — **comment proposer un modèle candidat**,
@@ -8,7 +8,7 @@ parce que c'est le cas d'usage le plus probable pour ce dépôt.
 
 ```bash
 git clone <ce dépôt>
-cd cif-credit-intelligencedescription
+cd credlens
 python -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev,data,repro]"
 ```
@@ -75,4 +75,4 @@ dépendance invisible sans cette information.
 Avant de proposer une contribution qui en dépend, vérifie l'état réel dans `CHANGELOG.md` et les
 issues ouvertes : couverture de tests à 90 % (87 % aujourd'hui, seuil CI à 70 %), Redis non
 encore provisionné sur la cible Kubernetes (le code le
-supporte via `CIF_REDIS_URL`, voir `deploy/huggingface/README.md`, mais rien ne le déploie encore).
+supporte via `CREDLENS_REDIS_URL`, voir `deploy/huggingface/README.md`, mais rien ne le déploie encore).

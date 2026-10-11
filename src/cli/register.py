@@ -1,7 +1,7 @@
-"""CLI : cif-register-model — enregistre le modèle officiel pilote dans le registry MLflow (Semaine 4).
+"""CLI : credlens-register-model — enregistre le modèle officiel pilote dans le registry MLflow (Semaine 4).
 
-Usage : cif-register-model [--version 1.0.0] [--artifact <chemins>]
-Priorité au fichier ``CIF_MODEL_ARTIFACT`` (env), sinon recherche locale du
+Usage : credlens-register-model [--version 1.0.0] [--artifact <chemins>]
+Priorité au fichier ``CREDLENS_MODEL_ARTIFACT`` (env), sinon recherche locale du
 ``MODEL_OFFICIAL_CALIBRATED.joblib`` du prototype pilote.
 """
 
@@ -27,8 +27,8 @@ from utils.logging import get_logger
 logger = get_logger(__name__)
 
 _CANDIDATE_DIRS = [
-    "CIF_CREDIT_INTELLIGENCE-20260817T205307Z-1-001/CIF_CREDIT_INTELLIGENCE/02_MODELS/trained",
-    "../CIF_CREDIT_INTELLIGENCE-20260817T205307Z-1-001/CIF_CREDIT_INTELLIGENCE/02_MODELS/trained",
+    "CREDLENS_CREDIT_INTELLIGENCE-20260817T205307Z-1-001/CREDLENS_CREDIT_INTELLIGENCE/02_MODELS/trained",
+    "../CREDLENS_CREDIT_INTELLIGENCE-20260817T205307Z-1-001/CREDLENS_CREDIT_INTELLIGENCE/02_MODELS/trained",
     "data/artifacts",
 ]
 
@@ -49,7 +49,7 @@ def main(version: str, artifact: str | None, metrics_json: str | None, stage: st
     joblib_path = artifact if artifact else find_official_artifact()
     if joblib_path is None:
         raise click.ClickException(
-            f"Artifact {DEFAULT_MODEL_NAME} introuvable. Définissez CIF_MODEL_ARTIFACT ou --artifact."
+            f"Artifact {DEFAULT_MODEL_NAME} introuvable. Définissez CREDLENS_MODEL_ARTIFACT ou --artifact."
         )
 
     if version_exists(DEFAULT_MODEL_NAME, version):

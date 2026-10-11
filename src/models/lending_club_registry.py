@@ -59,7 +59,7 @@ def register_champion(
     Args:
         champion: le ``ScoringModel`` gagnant du benchmark (déjà calibré).
         sample: quelques lignes de features (pour la signature MLflow, entrée/sortie typées).
-        model_name: nom du modèle dans le registre (distinct de ``cif_credit_official``).
+        model_name: nom du modèle dans le registre (distinct de ``credlens_pilot``).
         gates: portes de qualité de promotion (défaut : ``PromotionGates()``).
         tags: tags additionnels posés sur la version (ex. ``cost_threshold`` — évite à l'API de
             recharger le jeu de test pour connaître le seuil de décision au démarrage).

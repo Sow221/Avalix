@@ -92,26 +92,26 @@ data "oci_core_images" "ubuntu" {
   sort_order               = "DESC"
 }
 
-resource "oci_core_vcn" "cif_vcn" {
+resource "oci_core_vcn" "credlens_vcn" {
   compartment_id = var.compartment_ocid
   cidr_blocks    = ["10.0.0.0/16"]
-  display_name   = "cif-vcn"
-  dns_label      = "cifvcn"
+  display_name   = "credlens-vcn"
+  dns_label      = "credlensvcn"
 }
 
-resource "oci_core_subnet" "cif_subnet" {
+resource "oci_core_subnet" "credlens_subnet" {
   compartment_id    = var.compartment_ocid
-  vcn_id            = oci_core_vcn.cif_vcn.id
+  vcn_id            = oci_core_vcn.credlens_vcn.id
   cidr_block        = "10.0.1.0/24"
-  display_name      = "cif-subnet"
-  dns_label         = "cifsub"
-  security_list_ids = [oci_core_security_list.cif_sl.id]
+  display_name      = "credlens-subnet"
+  dns_label         = "credlenssub"
+  security_list_ids = [oci_core_security_list.credlens_sl.id]
 }
 
-resource "oci_core_security_list" "cif_sl" {
+resource "oci_core_security_list" "credlens_sl" {
   compartment_id = var.compartment_ocid
-  vcn_id         = oci_core_vcn.cif_vcn.id
-  display_name   = "cif-sl"
+  vcn_id         = oci_core_vcn.credlens_vcn.id
+  display_name   = "credlens-sl"
 
   ingress_security_rules {
     protocol = "6"
@@ -173,10 +173,10 @@ resource "oci_core_security_list" "cif_sl" {
   }
 }
 
-resource "oci_core_instance" "cif_k3s" {
+resource "oci_core_instance" "credlens_k3s" {
   availability_domain = data.oci_identity_availability_domains.ads.availability_domains[0].name
   compartment_id      = var.compartment_ocid
-  display_name        = "cif-k3s"
+  display_name        = "credlens-k3s"
   shape               = var.instance_shape
 
   shape_config {
@@ -191,7 +191,7 @@ resource "oci_core_instance" "cif_k3s" {
 
   create_vnic_details {
     assign_public_ip = true
-    subnet_id        = oci_core_subnet.cif_subnet.id
+    subnet_id        = oci_core_subnet.credlens_subnet.id
   }
 
   metadata = {
@@ -208,5 +208,5 @@ resource "oci_core_instance" "cif_k3s" {
 }
 
 output "instance_public_ip" {
-  value = oci_core_instance.cif_k3s.public_ip
+  value = oci_core_instance.credlens_k3s.public_ip
 }

@@ -143,7 +143,7 @@ def train_and_log(
                 artifact_path="model",
                 signature=signature,
                 input_example=X_te.iloc[:5],
-                registered_model_name="cif_credit_official" if register else None,
+                registered_model_name="credlens_pilot" if register else None,
                 serialization_format="cloudpickle",
                 pip_requirements=["xgboost>=2.0", "scikit-learn>=1.4", "numpy>=1.26", "pandas>=2.1"],
             )

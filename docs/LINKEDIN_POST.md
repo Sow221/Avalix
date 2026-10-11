@@ -1,4 +1,4 @@
-# Post LinkedIn — CIF Credit Intelligence (prêt à publier)
+# Post LinkedIn — CredLens (prêt à publier)
 
 ---
 
@@ -16,7 +16,7 @@ Le contexte : en zone UEMOA, la décision de crédit reste largement portée par
 
 Stack : Python · XGBoost · MLflow · FastAPI · Docker · Kubernetes · Terraform · GitHub Actions · Oracle Cloud
 
-🧠 Code + infra (IaC + CI/CD complets) : https://github.com/Sow221/cif-credit-intelligencedescription
+🧠 Code + infra (IaC + CI/CD complets) : https://github.com/Sow221/credlens
 🌐 Démo en ligne (Hugging Face Spaces) : [URL_A_RENSEIGNER_APRES_DEPLOIEMENT]
 
 #MachineLearning #CreditScoring #MLOps #DataEngineering #FinTech #Python #Kubernetes #Terraform #OracleCloud

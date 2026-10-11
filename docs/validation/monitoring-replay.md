@@ -64,7 +64,7 @@ n'affecte jamais la décision d'alerte, qui repose uniquement sur le PSI.
 ```bash
 pip install -e ".[dev,data,repro]"
 make pipeline                    # si pas déjà fait : ingestion + benchmark + enregistrement
-MLFLOW_TRACKING_URI=sqlite:///mlruns.db cif-replay-monitoring
+MLFLOW_TRACKING_URI=sqlite:///mlruns.db credlens-replay-monitoring
 cat reports/lending_club_monitoring/metrics.json
 ```
 

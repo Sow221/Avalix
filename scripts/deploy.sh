@@ -20,7 +20,7 @@ IP=$(terraform output -raw instance_public_ip)
 echo ">>> Instance K3s disponible sur $IP"
 
 # Recuperation du kubeconfig depuis le node K3s
-KCFG=/tmp/cif-k3s.yaml
+KCFG=/tmp/credlens-k3s.yaml
 scp -o StrictHostKeyChecking=no -i "$SSH_KEY" "ubuntu@$IP:/etc/rancher/k3s/k3s.yaml" "$KCFG"
 # Le kubeconfig pointe sur 127.0.0.1 : on remplace par l'IP publique
 case "${OSTYPE:-}" in
@@ -31,12 +31,12 @@ export KUBECONFIG="$KCFG"
 
 # Secrets générés à la volée : jamais de valeur par défaut committée (cf. k8s/secret.yaml).
 kubectl apply -f ../k8s/namespace.yaml
-kubectl -n cif create secret generic cif-api-secret \
+kubectl -n credlens create secret generic credlens-api-secret \
   --from-literal=jwt="$(openssl rand -hex 32)" \
   --from-literal=client_secret="$(openssl rand -hex 16)" \
   --dry-run=client -o yaml | kubectl apply -f -
 kubectl apply -f ../k8s/deployment.yaml -f ../k8s/service.yaml
-kubectl -n cif rollout status deployment/cif-api --timeout=180s
+kubectl -n credlens rollout status deployment/credlens-api --timeout=180s
 
 echo
 echo "==================================================="

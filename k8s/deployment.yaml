@@ -4,20 +4,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cif-api
-  namespace: cif
+  name: credlens-api
+  namespace: credlens
   labels:
-    app: cif-api
+    app: credlens-api
     tier: backend
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: cif-api
+      app: credlens-api
   template:
     metadata:
       labels:
-        app: cif-api
+        app: credlens-api
         tier: backend
       annotations:
         prometheus.io/scrape: "true"
@@ -29,24 +29,24 @@ spec:
         fsGroup: 999
       containers:
         - name: api
-          image: ghcr.io/sow221/cif-credit-intelligence/api:latest
+          image: ghcr.io/sow221/credlens/api:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
           env:
-            - name: CIF_ENV
+            - name: CREDLENS_ENV
               value: production
-            - name: CIF_JWT_SECRET
+            - name: CREDLENS_JWT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: cif-api-secret
+                  name: credlens-api-secret
                   key: jwt
-            - name: CIF_API_CLIENT_SECRET
+            - name: CREDLENS_API_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: cif-api-secret
+                  name: credlens-api-secret
                   key: client_secret
-            - name: CIF_MODEL_URI
+            - name: CREDLENS_MODEL_URI
               value: /app/model
           resources:
             requests:

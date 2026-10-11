@@ -1,4 +1,4 @@
-"""CLI : cif-benchmark — protocole out-of-time complet, tracé dans MLflow."""
+"""CLI : credlens-benchmark — protocole out-of-time complet, tracé dans MLflow."""
 
 from __future__ import annotations
 

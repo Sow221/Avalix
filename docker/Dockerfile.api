@@ -1,4 +1,4 @@
-# API de scoring CIF Credit Intelligence
+# API de scoring CredLens
 FROM python:3.11-slim AS builder
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -25,7 +25,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /app
 
-RUN groupadd -r cif && useradd -r -g cif cif && chown -R cif:cif /app
+RUN groupadd -r credlens && useradd -r -g credlens credlens && chown -R credlens:credlens /app
 
 COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
 COPY --from=builder /usr/local/bin /usr/local/bin
@@ -35,7 +35,7 @@ COPY --from=builder /app/src ./src
 # entry points dans /usr/local/bin) et ses dépendances (site-packages) — les deux sont
 # copiés ci-dessus. Un second `pip install .` échouerait de toute façon : pyproject.toml
 # n'est jamais copié dans ce stage.
-USER cif
+USER credlens
 
 EXPOSE 8000
 

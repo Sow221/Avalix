@@ -1,9 +1,9 @@
-# CIF Credit Intelligence — deploiement production (Oracle Cloud Free Tier)
+# CredLens — deploiement production (Oracle Cloud Free Tier)
 #
 # Architecture cible (IaC + GitOps-like) :
 #   GitHub Actions  --build/push-->  GHCR (image api:latest, modele cuit)
 #   Terraform       --provisionne--> VM A1 + K3s (Oracle Always-Free)
-#   K3s             --execute-->     deployment cif-api (2 replicas, NodePort 30080)
+#   K3s             --execute-->     deployment credlens-api (2 replicas, NodePort 30080)
 #
 # Usage (une seule commande) :
 #   make deploy \
@@ -27,7 +27,7 @@ deploy: init
 	./scripts/deploy.sh
 
 verify:
-	KUBECONFIG=/tmp/cif-k3s.yaml kubectl -n cif get pods,svc
+	KUBECONFIG=/tmp/credlens-k3s.yaml kubectl -n credlens get pods,svc
 
 clean:
 	cd terraform && terraform destroy -auto-approve
@@ -40,10 +40,10 @@ data-download:
 # --- Pipeline de validation (données publiques Lending Club) ---
 .PHONY: ingest benchmark pipeline test lint
 ingest:
-	cif-ingest-lc
+	credlens-ingest-lc
 
 benchmark:
-	cif-benchmark
+	credlens-benchmark
 
 pipeline: ingest benchmark
 

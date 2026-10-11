@@ -1,8 +1,8 @@
-# CIF Credit Intelligence — plateforme complète
+# CredLens — plateforme complète
 # MLflow tracker + registry, Dagster, API de scoring, Prometheus, Grafana, Alertmanager
 # Réseau interne isolé : rien n'est exposé publiquement sauf les ports documentés.
 
-name: cif-credit-intelligence
+name: credlens
 
 services:
   postgres:
@@ -22,7 +22,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    networks: [cif]
+    networks: [credlens]
 
   minio:
     # mirror.gcr.io ne mirrore de façon fiable que les images "library" officielles
@@ -41,7 +41,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    networks: [cif]
+    networks: [credlens]
 
   # Job unique : MinIO démarre sans buckets — sans ça, MLflow échoue au premier
   # upload d'artefact avec NoSuchBucket (confirmé en pratique en CI).
@@ -55,7 +55,7 @@ services:
       mc alias set local http://minio:9000 ${MINIO_ROOT_USER:-mlflow} ${MINIO_ROOT_PASSWORD:-mlflowminio} &&
       mc mb --ignore-existing local/mlflow-artifacts
       "
-    networks: [cif]
+    networks: [credlens]
 
   mlflow:
     build:
@@ -83,7 +83,7 @@ services:
       timeout: 5s
       retries: 10
       start_period: 20s
-    networks: [cif]
+    networks: [credlens]
 
   dagster:
     build:
@@ -103,7 +103,7 @@ services:
     depends_on:
       mlflow:
         condition: service_healthy
-    networks: [cif]
+    networks: [credlens]
 
   api:
     build:
@@ -116,7 +116,7 @@ services:
     depends_on:
       mlflow:
         condition: service_healthy
-    networks: [cif]
+    networks: [credlens]
 
   prometheus:
     image: mirror.gcr.io/prom/prometheus:v2.53.0
@@ -131,7 +131,7 @@ services:
     depends_on:
       - api
       - mlflow
-    networks: [cif]
+    networks: [credlens]
 
   alertmanager:
     image: mirror.gcr.io/prom/alertmanager:v0.27.0
@@ -140,7 +140,7 @@ services:
     volumes:
       - ./alertmanager:/etc/alertmanager
     command: ["--config.file=/etc/alertmanager/alertmanager.yml"]
-    networks: [cif]
+    networks: [credlens]
 
   grafana:
     image: mirror.gcr.io/grafana/grafana:11.1.0
@@ -156,10 +156,10 @@ services:
       - ./grafana/dashboards:/var/lib/grafana/dashboards
     depends_on:
       - prometheus
-    networks: [cif]
+    networks: [credlens]
 
 networks:
-  cif:
+  credlens:
     driver: bridge
 
 volumes:

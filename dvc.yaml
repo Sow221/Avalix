@@ -3,7 +3,7 @@
 # configuration ou de données relance uniquement les étapes concernées.
 stages:
   ingest:
-    cmd: cif-ingest-lc
+    cmd: credlens-ingest-lc
     deps:
       - data/raw/lending_club
       - src/data/lending_club.py
@@ -14,7 +14,7 @@ stages:
       - data/interim/lending_club_clean.parquet
       - data/processed/lending_club_features.parquet
   benchmark:
-    cmd: cif-benchmark --out reports/lending_club
+    cmd: credlens-benchmark --out reports/lending_club
     deps:
       - data/processed/lending_club_features.parquet
       - src/models/scoring.py

@@ -13,7 +13,7 @@ EXPOSE 5000
 # forme exec ne passe par aucun shell et ne les interpole jamais.
 #
 # --default-artifact-root utilise le schéma proxy `mlflow-artifacts:/` (pas l'URI S3
-# littérale) : avec --serve-artifacts, TOUT client (y compris cif-train exécuté hors
+# littérale) : avec --serve-artifacts, TOUT client (y compris credlens-train exécuté hors
 # conteneur, sans identifiants MinIO) route ses artefacts via l'API HTTP du serveur —
 # --artifacts-destination indique au SERVEUR seul où se trouve le stockage réel. Sans
 # ça, mlflow.sklearn.log_model() tente un accès S3 direct depuis le client et échoue

@@ -191,11 +191,11 @@ class AuditService:
                 for row in rows
             ]
 
-    def _upsert_customer(self, session: Session, cif_id: int) -> Customer:
-        existing = session.query(Customer).filter_by(cif_id=str(cif_id)).first()
+    def _upsert_customer(self, session: Session, customer_ref: int) -> Customer:
+        existing = session.query(Customer).filter_by(customer_ref=str(customer_ref)).first()
         if existing is not None:
             return existing
-        customer = Customer(cif_id=str(cif_id), n_past_loans=0)
+        customer = Customer(customer_ref=str(customer_ref), n_past_loans=0)
         session.add(customer)
         session.flush()
         return customer

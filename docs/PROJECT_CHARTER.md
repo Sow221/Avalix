@@ -1,4 +1,4 @@
-# PROJECT CHARTER — CIF Credit Intelligence
+# PROJECT CHARTER — CredLens
 
 > Statut : **v1.0 — document de référence** · Domaine : scoring de crédit (Afrique de l'Ouest / UEMOA)
 > Cadre de travail : TDSP (Microsoft) + pratiques MLOps niveau 1 (Google) · Droits : open source, driver par objectifs.

@@ -1,4 +1,4 @@
-# Dagster: webserver + daemon pour le pipeline CIF Credit Intelligence
+# Dagster: webserver + daemon pour le pipeline CredLens
 FROM python:3.11-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1 \

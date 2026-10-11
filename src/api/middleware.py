@@ -7,7 +7,7 @@
   compte en mémoire du processus — correcte pour une seule instance, incorrecte dès qu'il y a
   plusieurs réplicas (chacun compte séparément, le quota réel devient N fois plus permissif que
   configuré). ``RedisRateLimiter`` compte dans un magasin partagé, correcte à toute échelle.
-  ``create_app`` choisit l'une ou l'autre selon qu'un ``CIF_REDIS_URL`` est configuré — voir
+  ``create_app`` choisit l'une ou l'autre selon qu'un ``CREDLENS_REDIS_URL`` est configuré — voir
   ``api/app.py``.
 """
 

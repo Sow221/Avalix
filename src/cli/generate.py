@@ -1,4 +1,4 @@
-"""CLI : cif-generate — génération et préparation des données."""
+"""CLI : credlens-generate — génération et préparation des données."""
 
 from __future__ import annotations
 

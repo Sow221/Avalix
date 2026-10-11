@@ -15,7 +15,7 @@ from config.schema import FeatureConfig
 from models.train import feature_columns
 
 TEST_SECRET = "test-jwt-secret"
-CLIENT_ID = "cif-agent"
+CLIENT_ID = "credlens-agent"
 CLIENT_SECRET = "change-me-in-production"
 
 
@@ -117,8 +117,8 @@ def test_rate_limiting_per_client():
 
 
 def test_check_credentials_uses_env(monkeypatch):
-    monkeypatch.setenv("CIF_API_CLIENT_ID", "agent-1")
-    monkeypatch.setenv("CIF_API_CLIENT_SECRET", "secret-1")
+    monkeypatch.setenv("CREDLENS_API_CLIENT_ID", "agent-1")
+    monkeypatch.setenv("CREDLENS_API_CLIENT_SECRET", "secret-1")
     assert check_credentials("agent-1", "secret-1")
     assert not check_credentials("agent-1", "wrong")
 
@@ -139,13 +139,13 @@ def test_metrics_endpoint_is_prometheus_text():
         r = client.get("/metrics")
     assert r.status_code == 200
     assert r.headers["content-type"].startswith("text/plain")
-    assert "cif_http_requests_total" in r.text
+    assert "credlens_http_requests_total" in r.text
 
 
 def test_production_refuses_default_secrets(monkeypatch):
-    monkeypatch.setenv("CIF_ENV", "production")
-    monkeypatch.delenv("CIF_API_CLIENT_SECRET", raising=False)
-    monkeypatch.delenv("CIF_JWT_SECRET", raising=False)
+    monkeypatch.setenv("CREDLENS_ENV", "production")
+    monkeypatch.delenv("CREDLENS_API_CLIENT_SECRET", raising=False)
+    monkeypatch.delenv("CREDLENS_JWT_SECRET", raising=False)
     with pytest.raises(RuntimeError, match="production"):
         create_app(model=_stub_model(), auth_enabled=False)
 
@@ -298,7 +298,7 @@ def test_create_app_uses_redis_rate_limiter_when_configured_and_reachable(monkey
 
     from api.middleware import RedisRateLimiter
 
-    monkeypatch.setenv("CIF_REDIS_URL", "redis://fake-host-never-used:6379")
+    monkeypatch.setenv("CREDLENS_REDIS_URL", "redis://fake-host-never-used:6379")
     monkeypatch.setattr("api.app._build_async_redis_client", lambda _url: FakeAsyncRedis())
 
     app = create_app(model=_stub_model(), auth_enabled=False, jwt_secret=TEST_SECRET)
@@ -313,7 +313,7 @@ def test_create_app_falls_back_to_memory_when_redis_unreachable(monkeypatch):
     def _unreachable(_url):
         raise ConnectionError("Redis injoignable (simulé)")
 
-    monkeypatch.setenv("CIF_REDIS_URL", "redis://fake-host-never-used:6379")
+    monkeypatch.setenv("CREDLENS_REDIS_URL", "redis://fake-host-never-used:6379")
     monkeypatch.setattr("api.app._build_async_redis_client", _unreachable)
 
     app = create_app(model=_stub_model(), auth_enabled=False, jwt_secret=TEST_SECRET)
@@ -324,8 +324,8 @@ def test_create_app_falls_back_to_memory_when_redis_unreachable(monkeypatch):
 
 
 def test_create_app_ignores_redis_url_when_rate_limiter_explicitly_injected(monkeypatch):
-    """Un rate_limiter explicite (tests, ou un futur appelant) prime toujours sur CIF_REDIS_URL."""
-    monkeypatch.setenv("CIF_REDIS_URL", "redis://fake-host-never-used:6379")
+    """Un rate_limiter explicite (tests, ou un futur appelant) prime toujours sur CREDLENS_REDIS_URL."""
+    monkeypatch.setenv("CREDLENS_REDIS_URL", "redis://fake-host-never-used:6379")
     explicit = RateLimiter(rate_per_minute=5)
     app = create_app(model=_stub_model(), auth_enabled=False, jwt_secret=TEST_SECRET, rate_limiter=explicit)
     with TestClient(app):

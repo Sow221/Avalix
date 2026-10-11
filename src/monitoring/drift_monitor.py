@@ -2,7 +2,7 @@
 
 Le ``DriftMonitor`` bufferise les features des requêtes de scoring et recalcule
 périodiquement le taux de drift (DataDriftPreset) vs une baseline de référence,
-alimentant les jauges Prometheus ``cif_drift_ratio`` / ``cif_drift_alerts_total``.
+alimentant les jauges Prometheus ``credlens_drift_ratio`` / ``credlens_drift_alerts_total``.
 La baseline est la distribution d'entraînement (générée ici à partir du même
 générateur synthétique que l'entraînement — données honnêtement labellisées).
 """

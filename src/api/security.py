@@ -1,7 +1,7 @@
 """Sécurité de l'API — authentification JWT et credentials clients (exigence cabinet : JWT).
 
 Implémentation HS256 via PyJWT. Les secrets ne sont jamais commités : ils viennent de
-l'environnement (``CIF_API_CLIENT_ID`` / ``CIF_API_CLIENT_SECRET`` / ``CIF__JWT_SECRET``)
+l'environnement (``CREDLENS_API_CLIENT_ID`` / ``CREDLENS_API_CLIENT_SECRET`` / ``CREDLENS__JWT_SECRET``)
 ou du ``.env`` (voir ``.env.example``).
 """
 
@@ -14,7 +14,7 @@ import time
 import jwt
 from pydantic import BaseModel, Field
 
-DEFAULT_CLIENT_ID = "cif-agent"
+DEFAULT_CLIENT_ID = "credlens-agent"
 DEFAULT_CLIENT_SECRET = "change-me-in-production"
 
 
@@ -27,26 +27,26 @@ class TokenPayload(BaseModel):
 
 
 def _client_id() -> str:
-    return os.environ.get("CIF_API_CLIENT_ID", DEFAULT_CLIENT_ID)
+    return os.environ.get("CREDLENS_API_CLIENT_ID", DEFAULT_CLIENT_ID)
 
 
 def _client_secret() -> str:
-    return os.environ.get("CIF_API_CLIENT_SECRET", DEFAULT_CLIENT_SECRET)
+    return os.environ.get("CREDLENS_API_CLIENT_SECRET", DEFAULT_CLIENT_SECRET)
 
 
 def assert_production_secrets(jwt_secret: str | None) -> None:
     """Refuse de démarrer en production avec un secret par défaut ou non configuré.
 
-    Actif quand ``CIF_ENV=production``. En dev/test, un secret JWT aléatoire est généré à
+    Actif quand ``CREDLENS_ENV=production``. En dev/test, un secret JWT aléatoire est généré à
     chaque démarrage (jamais une valeur connue) et le secret client par défaut reste toléré.
     """
-    if os.environ.get("CIF_ENV", "dev").lower() != "production":
+    if os.environ.get("CREDLENS_ENV", "dev").lower() != "production":
         return
     problems: list[str] = []
     if not jwt_secret or jwt_secret == DEFAULT_CLIENT_SECRET:
-        problems.append("CIF_JWT_SECRET absent ou égal à la valeur par défaut")
+        problems.append("CREDLENS_JWT_SECRET absent ou égal à la valeur par défaut")
     if _client_secret() == DEFAULT_CLIENT_SECRET:
-        problems.append("CIF_API_CLIENT_SECRET vaut la valeur par défaut")
+        problems.append("CREDLENS_API_CLIENT_SECRET vaut la valeur par défaut")
     if problems:
         raise RuntimeError("Configuration de production invalide : " + " ; ".join(problems))
 

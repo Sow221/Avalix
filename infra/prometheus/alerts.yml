@@ -1,10 +1,10 @@
 # Alertes ML — dérive et santé du service de scoring
 groups:
-  - name: cif_ml_alerts
+  - name: credlens_ml_alerts
     interval: 60s
     rules:
       - alert: ScoringApiDown
-        expr: up{job="cif_api"} == 0
+        expr: up{job="credlens_api"} == 0
         for: 2m
         labels:
           severity: critical
@@ -12,7 +12,7 @@ groups:
         annotations:
           summary: "API de scoring injoignable"
       - alert: HighDriftRatio
-        expr: cif_drift_ratio > 0.2
+        expr: credlens_drift_ratio > 0.2
         for: 10m
         labels:
           severity: warning
@@ -20,7 +20,7 @@ groups:
         annotations:
           summary: "Dérive de données détectée (ratio > 0.2)"
       - alert: ModelLatencyHigh
-        expr: histogram_quantile(0.95, sum(rate(cif_score_duration_seconds_bucket[5m])) by (le)) > 1.0
+        expr: histogram_quantile(0.95, sum(rate(credlens_score_duration_seconds_bucket[5m])) by (le)) > 1.0
         for: 10m
         labels:
           severity: warning

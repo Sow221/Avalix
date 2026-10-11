@@ -84,24 +84,24 @@ def create_app(
         jwt_ttl_minutes: durée de validité des jetons.
         rate_limiter: instance RateLimiter (tests) — défaut : settings.
         audit_service: service d'audit (Semaine 3). Si ``None`` et que l'URL de la base
-            est fournie via ``CIF_DATABASE__URL``, il est construit automatiquement.
+            est fournie via ``CREDLENS_DATABASE__URL``, il est construit automatiquement.
     """
     settings = get_settings()
-    # Ordre de résolution : argument > CIF_MODEL_URI / MODEL_URI (images déployées, modèle
+    # Ordre de résolution : argument > CREDLENS_MODEL_URI / MODEL_URI (images déployées, modèle
     # exporté sur disque) > registry MLflow (stack locale).
     uri = (
         model_uri
-        or os.environ.get("CIF_MODEL_URI")
+        or os.environ.get("CREDLENS_MODEL_URI")
         or os.environ.get("MODEL_URI")
-        or "models:/cif_credit_official@champion"
+        or "models:/credlens_pilot@champion"
     )
-    assert_production_secrets(jwt_secret or os.environ.get("CIF_JWT_SECRET"))
+    assert_production_secrets(jwt_secret or os.environ.get("CREDLENS_JWT_SECRET"))
     if model is None and os.environ.get("MLFLOW_TRACKING_URI"):
         mlflow.set_tracking_uri(os.environ["MLFLOW_TRACKING_URI"])
 
     secret = jwt_secret or settings.jwt_secret.get_secret_value()
-    if audit_service is None and os.environ.get("CIF_DATABASE__URL"):
-        audit_service = AuditService(url=os.environ["CIF_DATABASE__URL"])
+    if audit_service is None and os.environ.get("CREDLENS_DATABASE__URL"):
+        audit_service = AuditService(url=os.environ["CREDLENS_DATABASE__URL"])
 
     @asynccontextmanager
     async def lifespan(app: FastAPI) -> AsyncIterator[None]:
@@ -123,7 +123,7 @@ def create_app(
             from services.lending_club_predictor import LendingClubPredictor
 
             lc_uri = (
-                os.environ.get("CIF_LC_MODEL_URI")
+                os.environ.get("CREDLENS_LC_MODEL_URI")
                 or os.environ.get("LC_MODEL_URI")
                 or "models:/lending_club_champion@champion"
             )
@@ -133,12 +133,12 @@ def create_app(
             logger.warning("serving.lending_club.disabled", error=str(exc))
             app.state.lending_club_predictor = None
 
-        # Rate limiting : Redis si CIF_REDIS_URL est configuré et joignable (correct à travers
+        # Rate limiting : Redis si CREDLENS_REDIS_URL est configuré et joignable (correct à travers
         # plusieurs instances/réplicas), sinon repli en mémoire du processus (correct pour une
         # seule instance — ce que sert Render aujourd'hui). Jamais si l'appelant a explicitement
         # injecté un limiteur (tests). Dégrade proprement : un Redis indisponible au démarrage
         # ne doit pas empêcher l'API de servir, juste revenir au comportement mono-instance.
-        redis_url = os.environ.get("CIF_REDIS_URL") or os.environ.get("REDIS_URL")
+        redis_url = os.environ.get("CREDLENS_REDIS_URL") or os.environ.get("REDIS_URL")
         if rate_limiter is None and redis_url:
             try:
                 redis_client = _build_async_redis_client(redis_url)
@@ -168,7 +168,7 @@ def create_app(
                 drift_task.cancel()
 
     app = FastAPI(
-        title="CIF Credit Intelligence API",
+        title="CredLens API",
         version="1.2.1",
         description="Service de scoring de crédit — CIF Digital Platform §M07. "
         "Les décisions ne sont pas contractuelles : human-in-the-loop obligatoire pour REVUE_HUMAINE.",

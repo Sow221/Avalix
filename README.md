@@ -1,5 +1,5 @@
 <p align="center">
-  <strong>CIF Credit Intelligence</strong><br/>
+  <strong>CredLens</strong><br/>
   <em>Credit decision support platform for the CIF ecosystem</em>
 </p>
 
@@ -30,7 +30,7 @@
 | Quick Start | [See below](#quick-start) |
 | Architecture | [See below](#architecture) |
 | Technical Stack | [See below](#technical-stack) |
-| Compliance | [See below](#cif-compliance) |
+| Compliance | [See below](#credlens-compliance) |
 | Validation | [See below](#validation) |
 | Status | [See below](#project-status) |
 | Documentation | [See below](#documentation) |
@@ -49,7 +49,7 @@ A credit scoring platform engineered as a financial intelligence infrastructure 
 | **Language** | Python 3.11 |
 | **License** | Apache 2.0 |
 | **Status** | Production |
-| **API** | https://cif-credit-intelligence.onrender.com/docs |
+| **API** | https://credlens.onrender.com/docs |
 
 <br/>
 
@@ -119,7 +119,7 @@ A credit scoring platform engineered as a financial intelligence infrastructure 
 ## API Endpoint
 
 <p align="center">
-  <strong>Live: https://cif-credit-intelligence.onrender.com/docs</strong><br/>
+  <strong>Live: https://credlens.onrender.com/docs</strong><br/>
   <em>Interactive Swagger UI, directly testable</em>
 </p>
 
@@ -147,8 +147,8 @@ PostgreSQL 16 (optional: SQLite for dev)
 **Step 1: Clone repository**
 
 ```bash
-git clone https://github.com/Sow221/cif-credit-intelligencedescription.git
-cd cif-credit-intelligencedescription
+git clone https://github.com/Sow221/credlens.git
+cd credlens
 ```
 
 **Step 2: Create virtual environment**
@@ -176,9 +176,9 @@ pip install -e ".[dev]"
 ### Option 1: Synthetic Data Pipeline
 
 ```bash
-cif-generate      # Generate synthetic data
-cif-train         # Train model (MLflow tracking)
-cif-evaluate      # Evaluate model
+credlens-generate      # Generate synthetic data
+credlens-train         # Train model (MLflow tracking)
+credlens-evaluate      # Evaluate model
 ```
 
 ### Option 2: Full Stack (Docker)
@@ -202,7 +202,7 @@ Services will be available at:
 pip install -e ".[dev,data]"
 make data-download      # Download from Kaggle
 make pipeline           # Ingest + benchmark
-cif-replay-monitoring   # Monitoring replay (24 months)
+credlens-replay-monitoring   # Monitoring replay (24 months)
 ```
 
 ---
@@ -223,7 +223,7 @@ src/
 ├── models/                 XGBoost + model_card
 ├── monitoring/             Drift (Evidently), Prometheus
 ├── services/               decision_engine, audit_service
-├── cli/                    CLI commands (cif-*)
+├── cli/                    CLI commands (credlens-*)
 └── utils/                  Logging, reproducibility
 
 migrations/                 Alembic (PostgreSQL schema versioning)
@@ -399,9 +399,9 @@ All CIF protocol guarantees are **implemented in code**, not just documented.
 <br/>
 
 <p align="center">
-  <a href="https://github.com/Sow221/cif-credit-intelligencedescription/tree/main/docs"><strong>Full Documentation</strong></a> · 
-  <a href="https://github.com/Sow221/cif-credit-intelligencedescription/issues"><strong>Issues</strong></a> · 
-  <a href="https://github.com/Sow221/cif-credit-intelligencedescription/discussions"><strong>Discussions</strong></a>
+  <a href="https://github.com/Sow221/credlens/tree/main/docs"><strong>Full Documentation</strong></a> · 
+  <a href="https://github.com/Sow221/credlens/issues"><strong>Issues</strong></a> · 
+  <a href="https://github.com/Sow221/credlens/discussions"><strong>Discussions</strong></a>
 </p>
 
 ---

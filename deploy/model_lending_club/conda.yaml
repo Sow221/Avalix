@@ -5,7 +5,7 @@ dependencies:
 - pip<=25.3
 - pip:
   - mlflow==3.16.1
-  - cif-credit-intelligence==0.1.0
+  - credlens==0.1.0
   - cloudpickle==3.1.2
   - colorama==0.4.6
   - numpy==1.26.4

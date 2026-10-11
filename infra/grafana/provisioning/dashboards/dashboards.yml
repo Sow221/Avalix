@@ -2,7 +2,7 @@
 apiVersion: 1
 
 providers:
-  - name: CIF Credit Intelligence
+  - name: CredLens
     orgId: 1
     folder: CIF
     type: file

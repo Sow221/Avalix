@@ -1,4 +1,4 @@
-artifact_path: /workspaces/cif-credit-intelligencedescription/mlruns/1/models/m-537e6fcf4e1c4a4f9766007d31ff8771/artifacts
+artifact_path: /workspaces/credlens/mlruns/1/models/m-537e6fcf4e1c4a4f9766007d31ff8771/artifacts
 flavors:
   python_function:
     artifacts:

@@ -1,4 +1,4 @@
-"""Définitions Dagster — orchestration des assets du projet CIF Credit Intelligence.
+"""Définitions Dagster — orchestration des assets du projet CredLens.
 
 Point d'entrée unique de visibilité sur l'état des données et des modèles (interface web,
 ``dagster dev``) : deux graphes d'assets, plutôt que des scripts isolés invisibles les uns
@@ -128,7 +128,7 @@ def decide_batch(context) -> None:
 
     df = pd.read_parquet(Path(CONF.data.processed_dir) / CONF.features.output_file)
     _mlflow_env()
-    model = mlflow.sklearn.load_model("models:/cif_credit_official@champion")
+    model = mlflow.sklearn.load_model("models:/credlens_pilot@champion")
     cols = feature_columns(CONF.features)
     probs = model.predict_proba(df[cols].astype(float))[:, 1]
 
@@ -151,7 +151,7 @@ def decide_batch(context) -> None:
 
 
 single_asset_job = dg.define_asset_job(
-    name="cif_full_pipeline",
+    name="credlens_full_pipeline",
     selection=[generate_raw_data, build_features, train_model, evaluate_model, decide_batch],
 )
 
@@ -163,7 +163,7 @@ daily_schedule = dg.ScheduleDefinition(
 
 
 # --- Lending Club : validation de la méthode sur données publiques réelles ---
-# Mêmes fonctions que les CLI `cif-ingest-lc` / `cif-benchmark` (aucune logique dupliquée) :
+# Mêmes fonctions que les CLI `credlens-ingest-lc` / `credlens-benchmark` (aucune logique dupliquée) :
 # Dagster n'est ici qu'une couche de visibilité et d'orchestration au-dessus du même code.
 
 

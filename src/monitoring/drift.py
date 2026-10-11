@@ -90,7 +90,7 @@ def check_drift_alert(summary: dict[str, Any], threshold: float = 0.2) -> bool:
 def compute_drift_ratio(reference: pd.DataFrame, current: pd.DataFrame) -> float:
     """Calcule uniquement le taux de features en drift (DataDriftPreset), sans écriture de fichier.
 
-    Utilisé par le monitoring temps réel pour alimenter la jauge Prometheus ``cif_drift_ratio``.
+    Utilisé par le monitoring temps réel pour alimenter la jauge Prometheus ``credlens_drift_ratio``.
     """
     from evidently.metric_preset import DataDriftPreset
     from evidently.report import Report

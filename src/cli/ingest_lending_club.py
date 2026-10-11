@@ -1,4 +1,4 @@
-"""CLI : cif-ingest-lc — raw → interim (validé) → features (point-in-time)."""
+"""CLI : credlens-ingest-lc — raw → interim (validé) → features (point-in-time)."""
 
 from __future__ import annotations
 

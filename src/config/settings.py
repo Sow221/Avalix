@@ -54,7 +54,7 @@ class ModelSettings(BaseModel):
     calibration_cv: int = 3
     artifacts_dir: str = "data/artifacts"
     mlflow_tracking_uri: str = "sqlite:///mlruns.db"
-    mlflow_experiment: str = "cif_credit_intelligence"
+    mlflow_experiment: str = "credlens"
 
 
 class DecisionSettings(BaseModel):
@@ -93,10 +93,10 @@ class DatabaseSettings(BaseModel):
 
 
 class Settings(BaseSettings):
-    """Config racine : chaque variable surchargeable par environnement (préfixe CIF_)."""
+    """Config racine : chaque variable surchargeable par environnement (préfixe CREDLENS_)."""
 
     model_config = SettingsConfigDict(
-        env_prefix="CIF_",
+        env_prefix="CREDLENS_",
         env_file=".env",
         env_file_encoding="utf-8",
         env_nested_delimiter="__",

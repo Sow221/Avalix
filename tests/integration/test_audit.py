@@ -17,7 +17,7 @@ from config.schema import FeatureConfig
 from models.train import feature_columns
 from services.audit_service import AuditEvent, AuditService
 
-CLIENT_ID = "cif-agent"
+CLIENT_ID = "credlens-agent"
 CLIENT_SECRET = "change-me-in-production"
 TEST_SECRET = "test-jwt-secret"
 
@@ -71,7 +71,7 @@ def test_prediction_rows_contain_required_fields(audit):
     row = rows[0]
     assert row["event"] == AuditEvent.PREDICTION_REQUESTED.value
     assert row["request_id"]
-    assert row["model_version"] == "models:/cif_credit_official@champion"
+    assert row["model_version"] == "models:/credlens_pilot@champion"
     assert "decision" in row["payload"]
     assert "probability" in row["payload"]
 
@@ -115,7 +115,7 @@ def test_audit_direct_record_roundtrip(audit):
 
 
 def test_model_version_registry_upsert(audit):
-    audit.upsert_model_version(model_name="cif_credit_official", version="1.0.0", stage="Staging")
-    audit.upsert_model_version(model_name="cif_credit_official", version="1.0.0", stage="Production")
+    audit.upsert_model_version(model_name="credlens_pilot", version="1.0.0", stage="Staging")
+    audit.upsert_model_version(model_name="credlens_pilot", version="1.0.0", stage="Production")
     assert audit.count_predictions() == 0
     assert audit.count_events() == 0

@@ -1,4 +1,4 @@
-"""CLI : cif-decision — exécute le decision engine et journalise les décisions."""
+"""CLI : credlens-decision — exécute le decision engine et journalise les décisions."""
 
 from __future__ import annotations
 
@@ -28,7 +28,7 @@ def main(data: str | None, model_uri: str | None, out: str | None) -> None:
     path = data or f"{cfg.data.processed_dir}/{cfg.features.output_file}"
     df = pd.read_parquet(path)
 
-    uri = model_uri or "models:/cif_credit_official@champion"
+    uri = model_uri or "models:/credlens_pilot@champion"
     model = mlflow.sklearn.load_model(uri)
 
     cols = feature_columns(cfg.features)

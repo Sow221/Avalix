@@ -1,6 +1,6 @@
-# Déploiement — CIF Credit Intelligence
+# Déploiement — CredLens
 
-> **En production maintenant** : https://cif-credit-intelligence.onrender.com/docs (Render,
+> **En production maintenant** : https://credlens.onrender.com/docs (Render,
 > instance gratuite unique — voir « API en production » dans le README racine pour le chemin de
 > montée en charge). Ce dossier s'appelle `huggingface/` pour des raisons historiques : Hugging
 > Face Spaces a retiré son palier Docker gratuit en 2026 (abonnement payant requis pour créer un
@@ -27,40 +27,40 @@ et cuits dans l'image — aucun serveur MLflow requis en production.
 python -m venv .venv && .venv\Scripts\activate
 pip install -e ".[dev]"
 set MLFLOW_TRACKING_URI=sqlite:///mlruns.db
-set CIF_ENV=dev
+set CREDLENS_ENV=dev
 uvicorn api.app:create_app --factory --port 8000
 ```
 
 En mode `dev` (défaut hors production), un secret JWT aléatoire est généré à chaque
-démarrage et le client de démo `cif-agent` / `change-me-in-production` reste accepté.
+démarrage et le client de démo `credlens-agent` / `change-me-in-production` reste accepté.
 Token : `POST /v1/auth/token` avec ces identifiants.
 
 ## 2. Image Docker (locale)
 
-L'image embarque `CIF_ENV=production` : elle **refuse de démarrer** sans de vrais
+L'image embarque `CREDLENS_ENV=production` : elle **refuse de démarrer** sans de vrais
 secrets (jamais les valeurs par défaut), avec un message d'erreur explicite.
 
 ```bash
-docker build -f deploy/huggingface/Dockerfile -t cif-api .
+docker build -f deploy/huggingface/Dockerfile -t credlens-api .
 docker run -p 8000:8000 \
-  -e CIF_JWT_SECRET="$(openssl rand -hex 32)" \
-  -e CIF_API_CLIENT_SECRET="$(openssl rand -hex 16)" \
-  cif-api
+  -e CREDLENS_JWT_SECRET="$(openssl rand -hex 32)" \
+  -e CREDLENS_API_CLIENT_SECRET="$(openssl rand -hex 16)" \
+  credlens-api
 ```
 
 Régénérer les artefacts avant de rebuilder (ils sont commités dans `deploy/`, pas
 recalculés en CI) :
 
 ```bash
-MLFLOW_TRACKING_URI=sqlite:///mlruns.db cif-export-model        # pilote CIF
-MLFLOW_TRACKING_URI=sqlite:///mlruns.db cif-export-lc-model     # champion Lending Club
+MLFLOW_TRACKING_URI=sqlite:///mlruns.db credlens-export-model        # pilote CIF
+MLFLOW_TRACKING_URI=sqlite:///mlruns.db credlens-export-lc-model     # champion Lending Club
 ```
 
 ## 3. CI/CD → GHCR
 
 `push` sur `main` déclenche `.github/workflows/deploy.yml` : build de l'image
 (avec le modèle cuit dans `deploy/model/`) et push vers
-`ghcr.io/sow221/cif-credit-intelligence/api:latest`.
+`ghcr.io/sow221/credlens/api:latest`.
 
 **À faire une fois** : dans GitHub → Packages → rendre le package `api`
 **public** (sinon les runtimes externes ne peuvent pas tirer l'image).
@@ -70,13 +70,13 @@ MLFLOW_TRACKING_URI=sqlite:///mlruns.db cif-export-lc-model     # champion Lendi
 N'importe quelle plateforme qui sait tirer une image publique depuis un registre (GHCR) et lui
 injecter des variables d'environnement convient — l'image ne dépend d'aucune spécificité de
 plateforme. En production aujourd'hui : **Render**, service Web créé directement depuis
-`ghcr.io/sow221/cif-credit-intelligence/api:latest` (pas de build, pas de dépôt Git connecté).
+`ghcr.io/sow221/credlens/api:latest` (pas de build, pas de dépôt Git connecté).
 
 **Obligatoire avant le premier démarrage**, quelle que soit la plateforme — définir en secrets
 (jamais en clair, jamais commités) :
-- `CIF_JWT_SECRET` : `openssl rand -hex 32`
-- `CIF_API_CLIENT_SECRET` : `openssl rand -hex 16`
-- `CIF_ENV` : `production`
+- `CREDLENS_JWT_SECRET` : `openssl rand -hex 32`
+- `CREDLENS_API_CLIENT_SECRET` : `openssl rand -hex 16`
+- `CREDLENS_ENV` : `production`
 
 Sans les deux premiers, le conteneur démarre puis s'arrête immédiatement (`assert_production_secrets`
 refuse les valeurs par défaut) — comportement voulu, pas un bug. La plateforme fournit `PORT`
@@ -109,37 +109,37 @@ secret JWT + client généré aléatoirement (jamais de valeur par défaut), app
 **Rotation du secret** sur un cluster déjà déployé :
 
 ```bash
-KUBECONFIG=/tmp/cif-k3s.yaml kubectl -n cif create secret generic cif-api-secret \
+KUBECONFIG=/tmp/credlens-k3s.yaml kubectl -n cif create secret generic credlens-api-secret \
   --from-literal=jwt=$(openssl rand -hex 32) \
   --from-literal=client_secret=$(openssl rand -hex 16) \
   --dry-run=client -o yaml | kubectl apply -f -
-kubectl -n cif rollout restart deployment/cif-api
+kubectl -n cif rollout restart deployment/credlens-api
 ```
 
 > `ingress.yaml` est **optionnel** : il nécessite nginx-ingress + cert-manager +
 > un ClusterIssuer `cloudflare-origin`. Sans ces composants, exposez via le
-> NodePort (ou `kubectl port-forward svc/cif-api 8000:80 -n cif`).
+> NodePort (ou `kubectl port-forward svc/credlens-api 8000:80 -n cif`).
 
 ## Sécurité
 
-- `CIF_ENV=production` (déjà fixé dans l'image) : l'API refuse de démarrer si
-  `CIF_JWT_SECRET` ou `CIF_API_CLIENT_SECRET` sont absents ou valent leur défaut
+- `CREDLENS_ENV=production` (déjà fixé dans l'image) : l'API refuse de démarrer si
+  `CREDLENS_JWT_SECRET` ou `CREDLENS_API_CLIENT_SECRET` sont absents ou valent leur défaut
   de démo. Pas de faille possible « oubliée » en prod — c'est vérifié au démarrage.
 - JWT `HS256`, TTL 1h. CORS ouvert par défaut (`*`) : restreindre en prod.
-- Un seul couple identifiant/secret client (`cif-agent`) : suffisant pour une démo,
+- Un seul couple identifiant/secret client (`credlens-agent`) : suffisant pour une démo,
   pas pour plusieurs clients réels (voir roadmap : gestion multi-clients).
 
-## Rate limiting à plusieurs instances (`CIF_REDIS_URL`)
+## Rate limiting à plusieurs instances (`CREDLENS_REDIS_URL`)
 
 Le rate limiting par défaut compte en mémoire du processus — correct pour une seule instance
 (ce que sert Render aujourd'hui), **incorrect dès qu'il y a plusieurs réplicas** : chaque
 processus compte séparément, le quota réel effectif devient `rate_per_minute × nb_instances`.
 
-Définir `CIF_REDIS_URL` (ex. `redis://host:6379`) bascule automatiquement sur un compteur
+Définir `CREDLENS_REDIS_URL` (ex. `redis://host:6379`) bascule automatiquement sur un compteur
 partagé dans Redis (`src/api/middleware.py::RedisRateLimiter`), vérifié fonctionnel avec deux
 conteneurs distincts derrière un même Redis : un quota de 5 partagé, pas 5 par conteneur.
 Dégrade proprement si Redis est injoignable au démarrage — l'API revient au comportement
 mono-instance plutôt que de refuser de démarrer.
 
 Pertinent pour la cible Kubernetes (`k8s/`, plusieurs réplicas) : ajouter un service Redis au
-cluster et définir `CIF_REDIS_URL` dans `k8s/deployment.yaml` avant de monter en charge.
+cluster et définir `CREDLENS_REDIS_URL` dans `k8s/deployment.yaml` avant de monter en charge.

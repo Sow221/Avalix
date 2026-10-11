@@ -31,7 +31,7 @@ def _patch_mlflow_submodule(monkeypatch, dotted_module: str, attr: str, replacem
     monkeypatch.setattr(sys.modules[dotted_module], attr, replacement)
 
 
-# --- cif-generate ---------------------------------------------------------------------------
+# --- credlens-generate ---------------------------------------------------------------------------
 
 
 def test_generate_passes_cli_overrides_to_config(runner, monkeypatch) -> None:
@@ -67,7 +67,7 @@ def _fake_cfg() -> SimpleNamespace:
     )
 
 
-# --- cif-train -------------------------------------------------------------------------------
+# --- credlens-train -------------------------------------------------------------------------------
 
 
 def test_train_promotes_only_when_register_flag_set(runner, monkeypatch, tmp_path) -> None:
@@ -106,7 +106,7 @@ def test_train_promotes_only_when_register_flag_set(runner, monkeypatch, tmp_pat
     assert promote_calls == ["3"]  # --register : promotion tentée sur la version fraîche
 
 
-# --- cif-evaluate ------------------------------------------------------------------------------
+# --- credlens-evaluate ------------------------------------------------------------------------------
 
 
 @pytest.mark.parametrize(
@@ -160,7 +160,7 @@ def test_evaluate_decision_gate_matches_protocol_thresholds(
     assert report["decision_gate"] == expected_gate
 
 
-# --- cif-decision ------------------------------------------------------------------------------
+# --- credlens-decision ------------------------------------------------------------------------------
 
 
 def test_decision_writes_one_jsonl_line_per_customer(runner, monkeypatch, tmp_path) -> None:
@@ -203,7 +203,7 @@ def test_decision_writes_one_jsonl_line_per_customer(runner, monkeypatch, tmp_pa
     assert {json.loads(line)["customer_id"] for line in lines} == {10, 20}
 
 
-# --- cif-export-model --------------------------------------------------------------------------
+# --- credlens-export-model --------------------------------------------------------------------------
 
 
 def test_export_model_replaces_existing_output_dir(runner, monkeypatch, tmp_path) -> None:
@@ -234,7 +234,7 @@ def _fake_cfg_full() -> SimpleNamespace:
     )
 
 
-# --- cif-export-lc-model -----------------------------------------------------------------------
+# --- credlens-export-lc-model -----------------------------------------------------------------------
 
 
 def test_export_lc_model_defaults_threshold_when_tag_missing(runner, monkeypatch, tmp_path) -> None:
@@ -258,7 +258,7 @@ def test_export_lc_model_defaults_threshold_when_tag_missing(runner, monkeypatch
     assert (out_dir / "cost_threshold.txt").read_text() == "0.15"  # défaut documenté, jamais inventé ailleurs
 
 
-# --- cif-ingest-lc -----------------------------------------------------------------------------
+# --- credlens-ingest-lc -----------------------------------------------------------------------------
 
 
 def test_ingest_lc_writes_features_parquet(runner, monkeypatch, tmp_path) -> None:
@@ -281,7 +281,7 @@ def test_ingest_lc_writes_features_parquet(runner, monkeypatch, tmp_path) -> Non
     assert len(pd.read_parquet(out_path)) == 2
 
 
-# --- cif-benchmark -----------------------------------------------------------------------------
+# --- credlens-benchmark -----------------------------------------------------------------------------
 
 
 def test_benchmark_registers_champion_only_when_register_flag_set(runner, monkeypatch, tmp_path) -> None:
@@ -334,7 +334,7 @@ def test_benchmark_registers_champion_only_when_register_flag_set(runner, monkey
     assert register_calls == [1]
 
 
-# --- cif-promote / cif-rollback -----------------------------------------------------------------
+# --- credlens-promote / credlens-rollback -----------------------------------------------------------------
 
 
 def test_promote_exits_nonzero_when_refused(runner, monkeypatch) -> None:
@@ -378,7 +378,7 @@ def test_rollback_echoes_restored_version(runner, monkeypatch) -> None:
     assert "v3" in result.output
 
 
-# --- cif-replay-monitoring ----------------------------------------------------------------------
+# --- credlens-replay-monitoring ----------------------------------------------------------------------
 
 
 def test_replay_monitoring_logs_one_metric_step_per_month(runner, monkeypatch, tmp_path) -> None:
@@ -424,7 +424,7 @@ def test_replay_monitoring_logs_one_metric_step_per_month(runner, monkeypatch, t
     assert psi_steps == [201401, 201402]  # un point par mois, ordonné
 
 
-# --- cif-register-model -------------------------------------------------------------------------
+# --- credlens-register-model -------------------------------------------------------------------------
 
 
 def test_register_model_fails_cleanly_when_artifact_missing(runner, monkeypatch) -> None:
@@ -475,7 +475,7 @@ def test_register_model_uses_explicit_metrics_json_without_touching_synthetic_da
         register,
         "register_from_joblib",
         lambda joblib_path, **kw: (
-            captured.update(kw) or SimpleNamespace(model_name="cif_credit_official", version="1.0.0", stage="Staging")
+            captured.update(kw) or SimpleNamespace(model_name="credlens_pilot", version="1.0.0", stage="Staging")
         ),
     )
 

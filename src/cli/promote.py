@@ -1,4 +1,4 @@
-"""CLI : cif-promote / cif-rollback — gouvernance des versions du modèle servi."""
+"""CLI : credlens-promote / credlens-rollback — gouvernance des versions du modèle servi."""
 
 from __future__ import annotations
 

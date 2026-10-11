@@ -22,7 +22,7 @@ from utils.logging import get_logger
 
 logger = get_logger(__name__)
 
-DEFAULT_MODEL_NAME = "cif_credit_official"
+DEFAULT_MODEL_NAME = "credlens_pilot"
 _OFFICIAL_FILENAME = "MODEL_OFFICIAL_CALIBRATED.joblib"
 
 
@@ -37,8 +37,8 @@ class RegisteredModel:
 
 
 def find_official_artifact(candidates: list[str | Path] | None = None) -> Path | None:
-    """Localise le modèle officiel du pilote (env ``CIF_MODEL_ARTIFACT`` prioritaire)."""
-    env_path = os.environ.get("CIF_MODEL_ARTIFACT")
+    """Localise le modèle officiel du pilote (env ``CREDLENS_MODEL_ARTIFACT`` prioritaire)."""
+    env_path = os.environ.get("CREDLENS_MODEL_ARTIFACT")
     env_candidates: list[str | Path] = [Path(env_path) / _OFFICIAL_FILENAME] if env_path else []
     search_paths = candidates or env_candidates
     for path in search_paths:
@@ -69,14 +69,14 @@ def _create_model_version(
     """Enregistre le modèle dans MLflow, transitionne le stage et retourne le run_id.
 
     MLflow numérote les versions en entiers (auto-incrément) ; la version sémantique
-    (ex. 1.0.0) est stockée en tag ``cif_semantic_version`` sur la version créée.
+    (ex. 1.0.0) est stockée en tag ``credlens_semantic_version`` sur la version créée.
     """
     if os.environ.get("MLFLOW_TRACKING_URI"):
         mlflow.set_tracking_uri(os.environ["MLFLOW_TRACKING_URI"])
 
     with mlflow.start_run(run_name=f"{model_name}-{version}") as run:
-        mlflow.set_tag("cif_model_name", model_name)
-        mlflow.set_tag("cif_model_version", version)
+        mlflow.set_tag("credlens_model_name", model_name)
+        mlflow.set_tag("credlens_model_version", version)
         mlflow.log_params({"n_features": len(features)})
         mlflow.log_metrics(metrics)
         mlflow.sklearn.log_model(
@@ -92,7 +92,7 @@ def _create_model_version(
         versions: list[Any] = client.search_model_versions(f"name='{model_name}'") or []
         latest = sorted(int(v.version) for v in versions)[-1] if versions else None
         if latest is not None:
-            client.set_model_version_tag(model_name, str(latest), "cif_semantic_version", version)
+            client.set_model_version_tag(model_name, str(latest), "credlens_semantic_version", version)
             client.transition_model_version_stage(model_name, str(latest), stage)
         return cast(str, run.info.run_id)
 
@@ -123,8 +123,8 @@ def register_from_joblib(
         model_name=model_name,
         version=version,
         algorithm="XGBClassifier + CalibratedClassifierCV(isotonic)",
-        owner="TELQAN / CIF Credit Intelligence",
-        contact="contact@cif-digital-platform.test",
+        owner="CredLens",
+        contact="contact@credlens.example",
         intended_use=(
             "Scoring de crédit (estimation de la probabilité de défaut) des clients CIF/DigiCoop-WA+ ; "
             "décision finale sous revue humaine (human-in-the-loop) obligatoire."
@@ -163,4 +163,4 @@ def version_exists(model_name: str, version: str) -> bool:
         versions: list[Any] = client.search_model_versions(f"name='{model_name}'") or []
     except mlflow.exceptions.RestException:
         return False
-    return any(v.tags.get("cif_semantic_version") == version for v in versions)
+    return any(v.tags.get("credlens_semantic_version") == version for v in versions)

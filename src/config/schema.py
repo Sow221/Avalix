@@ -100,7 +100,7 @@ class ModelConfig:
     )
     artifacts_dir: str = "data/artifacts"
     mlflow_tracking_uri: str = "sqlite:///mlruns.db"
-    mlflow_experiment: str = "cif_credit_intelligence"
+    mlflow_experiment: str = "credlens"
     # Calibration des probabilités (Isotonic via CalibratedClassifierCV)
     calibration: CalibrationConfig = field(default_factory=CalibrationConfig)
     # Familles de features utilisées pour l'ablation (M0 baseline, M1, M2, M3)
@@ -143,7 +143,7 @@ class ServingConfig:
 
     host: str = "0.0.0.0"
     port: int = 8000
-    model_uri: str = "models:/cif_credit_official@champion"
+    model_uri: str = "models:/credlens_pilot@champion"
     request_limits: dict[str, int] = field(default_factory=lambda: {"rate_per_minute": 120})
 
 

@@ -5,8 +5,8 @@ ENV PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
     PORT=8000 \
     MODEL_URI=/app/model \
-    CIF_LC_MODEL_URI=/app/model_lc \
-    CIF_ENV=production
+    CREDLENS_LC_MODEL_URI=/app/model_lc \
+    CREDLENS_ENV=production
 
 WORKDIR /app
 

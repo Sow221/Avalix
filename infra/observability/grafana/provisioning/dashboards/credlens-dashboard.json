@@ -1,6 +1,6 @@
 {
-  "title": "CIF Credit Intelligence — Monitoring",
-  "uid": "cif-monitoring",
+  "title": "CredLens — Monitoring",
+  "uid": "credlens-monitoring",
   "schemaVersion": 39,
   "version": 1,
   "time": { "from": "now-1h", "to": "now" },
@@ -12,7 +12,7 @@
       "type": "stat",
       "datasource": { "type": "prometheus", "uid": "prometheus" },
       "gridPos": { "h": 6, "w": 6, "x": 0, "y": 0 },
-      "targets": [{ "expr": "cif_drift_ratio", "refId": "A" }]
+      "targets": [{ "expr": "credlens_drift_ratio", "refId": "A" }]
     },
     {
       "id": 2,
@@ -20,7 +20,7 @@
       "type": "timeseries",
       "datasource": { "type": "prometheus", "uid": "prometheus" },
       "gridPos": { "h": 6, "w": 9, "x": 6, "y": 0 },
-      "targets": [{ "expr": "sum(rate(cif_http_requests_total[1m]))", "refId": "A" }]
+      "targets": [{ "expr": "sum(rate(credlens_http_requests_total[1m]))", "refId": "A" }]
     },
     {
       "id": 3,
@@ -30,7 +30,7 @@
       "gridPos": { "h": 6, "w": 9, "x": 15, "y": 0 },
       "targets": [
         {
-          "expr": "histogram_quantile(0.95, sum(rate(cif_http_request_duration_seconds_bucket[5m])) by (le))",
+          "expr": "histogram_quantile(0.95, sum(rate(credlens_http_request_duration_seconds_bucket[5m])) by (le))",
           "refId": "A"
         }
       ]
@@ -41,7 +41,7 @@
       "type": "timeseries",
       "datasource": { "type": "prometheus", "uid": "prometheus" },
       "gridPos": { "h": 8, "w": 12, "x": 0, "y": 6 },
-      "targets": [{ "expr": "rate(cif_score_probability_bucket[5m])", "refId": "A" }]
+      "targets": [{ "expr": "rate(credlens_score_probability_bucket[5m])", "refId": "A" }]
     },
     {
       "id": 5,
@@ -49,7 +49,7 @@
       "type": "stat",
       "datasource": { "type": "prometheus", "uid": "prometheus" },
       "gridPos": { "h": 6, "w": 6, "x": 12, "y": 6 },
-      "targets": [{ "expr": "cif_drift_alerts_total", "refId": "A" }]
+      "targets": [{ "expr": "credlens_drift_alerts_total", "refId": "A" }]
     },
     {
       "id": 6,
@@ -57,7 +57,7 @@
       "type": "timeseries",
       "datasource": { "type": "prometheus", "uid": "prometheus" },
       "gridPos": { "h": 8, "w": 12, "x": 12, "y": 6 },
-      "targets": [{ "expr": "sum(rate(cif_score_requests_total[1m]))", "refId": "A" }]
+      "targets": [{ "expr": "sum(rate(credlens_score_requests_total[1m]))", "refId": "A" }]
     }
   ]
 }

@@ -31,7 +31,7 @@ class Customer(Base):
     __tablename__ = "customers"
 
     id: Mapped[int] = mapped_column(BigIntPK, primary_key=True, autoincrement=True)
-    cif_id: Mapped[str] = mapped_column(String(64), unique=True, nullable=False)
+    customer_ref: Mapped[str] = mapped_column(String(64), unique=True, nullable=False)
     n_past_loans: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     risk_segment: Mapped[str] = mapped_column(String(32), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())

@@ -15,7 +15,7 @@
       "targets": [
         {
           "refId": "A",
-          "expr": "sum(rate(cif_score_requests_total[5m]))",
+          "expr": "sum(rate(credlens_score_requests_total[5m]))",
           "legendFormat": "req/s"
         }
       ],
@@ -30,7 +30,7 @@
       "targets": [
         {
           "refId": "A",
-          "expr": "cif_drift_ratio",
+          "expr": "credlens_drift_ratio",
           "legendFormat": "drift"
         }
       ],
@@ -59,7 +59,7 @@
       "targets": [
         {
           "refId": "A",
-          "expr": "histogram_quantile(0.95, sum(rate(cif_score_duration_seconds_bucket[5m])) by (le))",
+          "expr": "histogram_quantile(0.95, sum(rate(credlens_score_duration_seconds_bucket[5m])) by (le))",
           "legendFormat": "p95"
         }
       ],
@@ -74,7 +74,7 @@
       "targets": [
         {
           "refId": "A",
-          "expr": "sum(rate(cif_score_probability_bucket[5m])) by (le)",
+          "expr": "sum(rate(credlens_score_probability_bucket[5m])) by (le)",
           "legendFormat": "{{le}}"
         }
       ],
@@ -82,11 +82,11 @@
     }
   ],
   "schemaVersion": 39,
-  "tags": ["cif", "ml", "monitoring"],
+  "tags": ["credlens", "ml", "monitoring"],
   "templating": { "list": [] },
   "time": { "from": "now-6h", "to": "now" },
   "timezone": "browser",
-  "title": "CIF Credit Intelligence — Scoring",
-  "uid": "cif-scoring",
+  "title": "CredLens — Scoring",
+  "uid": "credlens-scoring",
   "version": 1
 }

@@ -1,11 +1,11 @@
 {
-  "name_version": "cif_credit_official:1.0.0",
-  "model_name": "cif_credit_official",
+  "name_version": "credlens_pilot:1.0.0",
+  "model_name": "credlens_pilot",
   "version": "1.0.0",
   "model_type": "classification_binaire",
   "algorithm": "XGBClassifier + CalibratedClassifierCV(isotonic)",
-  "owner": "TELQAN / CIF Credit Intelligence",
-  "contact": "contact@cif-digital-platform.test",
+  "owner": "CredLens",
+  "contact": "contact@credlens.example",
   "intended_use": "Scoring de crédit (estimation de la probabilité de défaut) des clients CIF/DigiCoop-WA+ ; décision finale sous revue humaine (human-in-the-loop) obligatoire.",
   "target_population": "Détenteurs de produits CIF/DigiCoop-WA+ (pilot synthétique et réel).",
   "decision_thresholds": {

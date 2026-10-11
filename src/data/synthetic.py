@@ -1,4 +1,4 @@
-"""Générateur de données synthétiques du jeu CIF Credit Intelligence.
+"""Générateur de données synthétiques du jeu CredLens.
 
 Reproduit fidèlement la structure documentée dans `05_DOCUMENTATION/02_data_dictionary.json`
 et les statistiques du `journal_bord.json` (10 000 clients, ~24 900 prêts, 240 000 enregistrements
