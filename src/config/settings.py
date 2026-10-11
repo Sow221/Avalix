@@ -1,8 +1,8 @@
-"""Configuration Pydantic centralisée — exigence du cabinet (Semaine 1, src/config/settings.py).
+"""Configuration Pydantic centralisée.
 
 Classe ``Settings`` (Pydantic v2, ``pydantic-settings``) : source unique de la configuration
 pour l'API, les services et l'infra. `Variables d'environnement en .env `, valeurs par
-défaut strictes alignées sur le cahier des charges CIF (§M07/§64/§65/§93).
+défaut strictes strictes.
 
 La config ML (Hydra + YAML) reste pilotée par ``config.load.load_config`` pour les pipelines ;
 ``Settings.from_app_config`` fournit le pont vers les dataclasses Hydra.
@@ -41,7 +41,7 @@ class FeatureSettings(BaseModel):
 
 
 class ModelSettings(BaseModel):
-    """Paramètres du modèle, de la calibration (§93) et du registry MLflow."""
+    """Paramètres du modèle, de la calibration et du registry MLflow."""
 
     algorithm: str = "xgboost"
     test_size: float = 0.2
@@ -58,7 +58,7 @@ class ModelSettings(BaseModel):
 
 
 class DecisionSettings(BaseModel):
-    """Seuils et règles du decision engine (Model ≠ Policy ≠ Workflow ≠ Decision, §64)."""
+    """Seuils et règles du decision engine (Model ≠ Policy ≠ Workflow ≠ Decision)."""
 
     approve_threshold: float = 0.10
     review_threshold: float = 0.25
@@ -68,7 +68,7 @@ class DecisionSettings(BaseModel):
 
 
 class MonitoringSettings(BaseModel):
-    """Seuils d'alerte monitoring (exigence cabinet : ROC-AUC < 0.65, ECE > 0.10, PSI > 0.25)."""
+    """Seuils d'alerte monitoring (par défaut : ROC-AUC < 0.65, ECE > 0.10, PSI > 0.25)."""
 
     roc_auc_alert: float = 0.65
     ece_alert: float = 0.10
@@ -77,7 +77,7 @@ class MonitoringSettings(BaseModel):
 
 
 class ApiSettings(BaseModel):
-    """Paramètres de l'API (FastAPI/JWT/rate limiting) — exigences cabinet Semaine 2."""
+    """Paramètres de l'API (FastAPI/JWT/rate limiting)."""
 
     host: str = "0.0.0.0"
     port: int = 8000
@@ -87,7 +87,7 @@ class ApiSettings(BaseModel):
 
 
 class DatabaseSettings(BaseModel):
-    """Connexion PostgreSQL 16 (audit trail, registry) — exigences cabinet Semaine 3."""
+    """Connexion PostgreSQL 16 (audit trail, registry)."""
 
     url: str = "postgresql+psycopg2://mlflow:mlflow@localhost:5432/mlflow"
 

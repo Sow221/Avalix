@@ -1,4 +1,4 @@
-"""Intégration modèle + décision — service de prédiction réutilisable (Semaine 3).
+"""Intégration modèle + décision — service de prédiction réutilisable.
 
 `Predictor` orchestre : modèle (probabilité) → confiance → décision (DecisionEngine) →
 journalisation d'audit atomique. Il est injecté dans l'API (``app.state.predictor``),

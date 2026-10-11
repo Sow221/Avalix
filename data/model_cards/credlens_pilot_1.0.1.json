@@ -6,8 +6,8 @@
   "algorithm": "XGBClassifier + CalibratedClassifierCV(isotonic)",
   "owner": "CredLens",
   "contact": "contact@credlens.example",
-  "intended_use": "Scoring de crédit (estimation de la probabilité de défaut) des clients CIF/DigiCoop-WA+ ; décision finale sous revue humaine (human-in-the-loop) obligatoire.",
-  "target_population": "Détenteurs de produits CIF/DigiCoop-WA+ (pilot synthétique et réel).",
+  "intended_use": "Scoring de crédit (estimation de la probabilité de défaut) des clients d'institutions de microfinance (SFD) ; décision finale sous revue humaine (human-in-the-loop) obligatoire.",
+  "target_population": "Clients d'institutions de microfinance (SFD) de l'UEMOA (pilot synthétique et réel).",
   "decision_thresholds": {
     "approve": 0.1,
     "review": 0.25,
@@ -59,11 +59,11 @@
   "limitations": [
     "Modèle entraîné sur données synthétiques pour le pilot.",
     "Pas de décision contractuelle sans revue humaine (REVUE_HUMAINE).",
-    "À ré-entraîner sur les données réelles CIF (protocole shadow mode).",
-    "Le générateur synthétique dérive toutes les features d'un facteur latent unique : le ROC-AUC observé (≈0.94) surestime structurellement la séparabilité attendue sur données réelles, multi-causales et non stationnaires. À réévaluer sur données CIF réelles."
+    "À ré-entraîner sur les données réelles de production (protocole shadow mode).",
+    "Le générateur synthétique dérive toutes les features d'un facteur latent unique : le ROC-AUC observé (≈0.94) surestime structurellement la séparabilité attendue sur données réelles, multi-causales et non stationnaires. À réévaluer sur données réelles de production."
   ],
   "fairness_notes": "Audit d'équité à reproduire sur données réelles (disparités par profil non fiabilisées sur données synthétiques).",
   "data_sources": [
-    "Prototype synthétique TELQAN (audit phases A-F)"
+    "Prototype synthétique CredLens"
   ]
 }

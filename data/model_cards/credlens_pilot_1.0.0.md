@@ -8,10 +8,10 @@
 **Responsable** : CredLens (contact@credlens.example)
 
 ## Usage prévu
-Scoring de crédit (estimation de la probabilité de défaut) des clients CIF/DigiCoop-WA+ ; décision finale sous revue humaine (human-in-the-loop) obligatoire.
+Scoring de crédit (estimation de la probabilité de défaut) des clients d'institutions de microfinance (SFD) ; décision finale sous revue humaine (human-in-the-loop) obligatoire.
 
 ## Population cible
-Détenteurs de produits CIF/DigiCoop-WA+ (pilot synthétique et réel).
+Clients d'institutions de microfinance (SFD) de l'UEMOA (pilot synthétique et réel).
 
 ## Métriques d'entraînement
 | Métrique | Valeur |
@@ -38,12 +38,12 @@ Détenteurs de produits CIF/DigiCoop-WA+ (pilot synthétique et réel).
 ## Limites
 - Modèle entraîné sur données synthétiques pour le pilot.
 - Pas de décision contractuelle sans revue humaine (REVUE_HUMAINE).
-- À ré-entraîner sur les données réelles CIF (protocole shadow mode).
+- À ré-entraîner sur les données réelles de production (protocole shadow mode).
 
 ## Considérations d'équité
 Audit d'équité à reproduire sur données réelles (disparités par profil non fiabilisées sur données synthétiques).
 
 ## Sources de données
-- Prototype synthétique TELQAN (audit phases A-F)
+- Prototype synthétique CredLens
 
 *Générée le 2026-08-19T13:38:14.291201+00:00.*

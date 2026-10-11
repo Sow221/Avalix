@@ -8,18 +8,18 @@
 > ci-dessous restent corrects et portables — c'est exactement cette image qui tourne sur Render
 > aujourd'hui, et elle fonctionnerait identiquement sur Hugging Face si leur politique change.
 
-Deux modèles servis par la même API : le **pilote CIF** (synthétique, `/v1/predict`,
+Deux modèles servis par la même API : le **pilote synthétique** (synthétique, `/v1/predict`,
 25 features) et le **champion Lending Club** (validé sur données publiques réelles,
 `/v1/lending-club/score`, 18 features, voir `docs/validation/lending-club-benchmark.md`).
 Les deux sont exportés en artefacts autonomes (`deploy/model/`, `deploy/model_lending_club/`)
 et cuits dans l'image — aucun serveur MLflow requis en production.
 
-> **Transparence méthodologique** : le modèle CIF est entraîné sur des données
-> **synthétiques** (aucune donnée réelle CIF n'a été utilisée) — démontre la
+> **Transparence méthodologique** : le modèle pilote est entraîné sur des données
+> **synthétiques** (aucune donnée réelle de production n'a été utilisée) — démontre la
 > robustesse du système MLOps, pas un AUC réel sur des clients. Le champion
 > Lending Club, lui, est validé sur des données réelles, mais un autre marché
 > du crédit (particuliers américains) : il valide la **méthode**, pas la
-> performance attendue sur le portefeuille CIF.
+> performance attendue sur le portefeuille réel de production.
 
 ## 1. API en local
 
@@ -52,7 +52,7 @@ Régénérer les artefacts avant de rebuilder (ils sont commités dans `deploy/`
 recalculés en CI) :
 
 ```bash
-MLFLOW_TRACKING_URI=sqlite:///mlruns.db credlens-export-model        # pilote CIF
+MLFLOW_TRACKING_URI=sqlite:///mlruns.db credlens-export-model        # pilote synthétique
 MLFLOW_TRACKING_URI=sqlite:///mlruns.db credlens-export-lc-model     # champion Lending Club
 ```
 
@@ -85,7 +85,7 @@ automatiquement (Render : 10000 ; Hugging Face Spaces si réactivé un jour : 78
 
 ## 5. Kubernetes (cible de montée en charge, Oracle Cloud Always Free)
 
-Non activée aujourd'hui (production actuelle : §4, Render) — prête à l'être : Terraform
+Non activée aujourd'hui (production actuelle : Render, cf. §4) — prête à l'être : Terraform
 provisionne la VM et installe K3s, `scripts/deploy.sh` applique ensuite les manifestes et crée
 les secrets (source unique de vérité pour la couche applicative, jamais dupliquée entre les deux).
 
@@ -109,16 +109,16 @@ secret JWT + client généré aléatoirement (jamais de valeur par défaut), app
 **Rotation du secret** sur un cluster déjà déployé :
 
 ```bash
-KUBECONFIG=/tmp/credlens-k3s.yaml kubectl -n cif create secret generic credlens-api-secret \
+KUBECONFIG=/tmp/credlens-k3s.yaml kubectl -n credlens create secret generic credlens-api-secret \
   --from-literal=jwt=$(openssl rand -hex 32) \
   --from-literal=client_secret=$(openssl rand -hex 16) \
   --dry-run=client -o yaml | kubectl apply -f -
-kubectl -n cif rollout restart deployment/credlens-api
+kubectl -n credlens rollout restart deployment/credlens-api
 ```
 
 > `ingress.yaml` est **optionnel** : il nécessite nginx-ingress + cert-manager +
 > un ClusterIssuer `cloudflare-origin`. Sans ces composants, exposez via le
-> NodePort (ou `kubectl port-forward svc/credlens-api 8000:80 -n cif`).
+> NodePort (ou `kubectl port-forward svc/credlens-api 8000:80 -n credlens`).
 
 ## Sécurité
 

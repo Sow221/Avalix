@@ -1,6 +1,6 @@
 """API de scoring FastAPI — modèle servi depuis le registry MLflow, décision via le DecisionEngine.
 
-Assemblage exigé par le cabinet (Semaine 2) : ``app.py`` (fabrique), ``routes.py`` (endpoints),
+Assemblage : ``app.py`` (fabrique), ``routes.py`` (endpoints),
 ``schemas.py`` (Pydantic strict), ``middleware.py`` (request ID + rate limiting) et JWT.
 Le modèle est chargé **au démarrage** (lifespan), pas à l'import, pour rester testable et
 suivre le pattern d'injection de dépendances explicite.
@@ -83,7 +83,7 @@ def create_app(
         jwt_secret: secret HS256 (défaut : settings Pydantic).
         jwt_ttl_minutes: durée de validité des jetons.
         rate_limiter: instance RateLimiter (tests) — défaut : settings.
-        audit_service: service d'audit (Semaine 3). Si ``None`` et que l'URL de la base
+        audit_service: service d'audit. Si ``None`` et que l'URL de la base
             est fournie via ``CREDLENS_DATABASE__URL``, il est construit automatiquement.
     """
     settings = get_settings()
@@ -118,7 +118,7 @@ def create_app(
         )
 
         # Champion Lending Club (démonstration méthodologique, voir docs/validation/) —
-        # optionnel : l'API CIF reste fonctionnelle même si ce modèle n'est pas enregistré.
+        # optionnel : l'API CredLens reste fonctionnelle même si ce modèle n'est pas enregistré.
         try:
             from services.lending_club_predictor import LendingClubPredictor
 
@@ -170,7 +170,7 @@ def create_app(
     app = FastAPI(
         title="CredLens API",
         version="1.2.1",
-        description="Service de scoring de crédit — CIF Digital Platform §M07. "
+        description="Service de scoring de crédit — API versionnée et authentifiée (JWT). "
         "Les décisions ne sont pas contractuelles : human-in-the-loop obligatoire pour REVUE_HUMAINE.",
         lifespan=lifespan,
         swagger_ui_parameters={"persistAuthorization": True},

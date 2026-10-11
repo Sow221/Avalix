@@ -1,4 +1,4 @@
-"""Tests de la Model Card et du registry MLflow (Semaine 4)."""
+"""Tests de la Model Card et du registry MLflow."""
 
 from __future__ import annotations
 
@@ -49,10 +49,10 @@ class TestModelCard:
             model_name="credlens_pilot",
             version="1.0.0",
             algorithm="xgboost + isotonic",
-            owner="TELQAN",
+            owner="CredLens",
             contact="c@c",
             intended_use="scoring crédit",
-            target_population="clients CIF",
+            target_population="clients de l'institution",
             decision_thresholds={"approve": 0.1, "review": 0.25, "hard_reject": 0.5},
             training_metrics={"roc_auc": 0.83, "ece": 0.02},
             features=FEATURES,
@@ -71,7 +71,7 @@ class TestModelCard:
         assert "Model Card" in text
         assert "0.1000" in text
 
-    def test_monitoring_thresholds_cabinet_defaults(self):
+    def test_monitoring_thresholds_defaults(self):
         card = build_model_card(
             model_name="m",
             version="1",

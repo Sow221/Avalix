@@ -3,12 +3,12 @@
 **Statut** : accepté · **Date** : 2026-09-21
 
 ## Contexte
-Aucune donnée réelle CIF n'est disponible. Le jeu synthétique historique dérive toutes ses variables
+Aucune donnée réelle de production n'est disponible. Le jeu synthétique historique dérive toutes ses variables
 d'un facteur latent unique : son ROC-AUC (≈ 0,94) reflète le générateur, pas une capacité de prédiction.
 Il ne permet ni split temporel réel ni comparaison honnête à une baseline.
 
 ## Décision
-Valider la **méthode** (pas la performance CIF) sur le jeu public Lending Club : vraies dates d'octroi,
+Valider la **méthode** (pas la performance en production) sur le jeu public Lending Club : vraies dates d'octroi,
 issues réelles, volumétrie suffisante. Le générateur synthétique est conservé comme jeu de test.
 
 ## Périmètre
@@ -22,5 +22,5 @@ Entraînement ≤ 2013 ; validation 2014 ; test 2015 (jamais utilisé pour les c
 
 ## Conséquences
 - Résultats publiables comme « méthode validée sur données publiques réelles ».
-- Ils **ne** disent rien de la performance sur le portefeuille CIF (crédit américain entre particuliers).
-- Réentraînement sur données CIF via le même pipeline dès qu'elles existent.
+- Ils **ne** disent rien de la performance sur le portefeuille réel de production (crédit américain entre particuliers).
+- Réentraînement sur données réelles via le même pipeline dès qu'elles existent.

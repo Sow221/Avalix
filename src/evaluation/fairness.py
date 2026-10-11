@@ -16,7 +16,7 @@ def fairness_by_group(
 ) -> dict[str, dict[str, str | float]]:
     """Calcule ROC-AUC, Brier et PR-AUC par groupe, avec comptage d'effectifs.
 
-    Règle du protocole CIF : les petits groupes sont marqués « estimation instable »
+    Règle du protocole CredLens : les petits groupes sont marqués « estimation instable »
     (représenté ici par n < 50).
     """
     result: dict[str, dict[str, str | float]] = {}

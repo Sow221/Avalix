@@ -52,7 +52,7 @@ est fixé à l'avance et documenté (`docs/adr/`), pas négociable au cas par ca
    intervalle de confiance bootstrap **apparié** qui exclut 0 (voir `evaluation/bootstrap.py::paired_auc_difference`
    et `docs/adr/0003`). Un score plus élevé sans cette preuve statistique ne suffit pas.
 4. **Aucune variable d'après-décision.** Le contrat de données (`src/data/validation.py` pour
-   Lending Club, `src/features/validate.py` pour le pilote CIF) rejette toute colonne connue
+   Lending Club, `src/features/validate.py` pour le pilote synthétique) rejette toute colonne connue
    seulement après l'octroi. Une feature qui améliore le score sans explication causale
    plausible mérite d'être suspectée avant d'être célébrée.
 5. **Explique tes seuils de décision par un coût**, pas à la main

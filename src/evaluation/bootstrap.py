@@ -1,4 +1,4 @@
-"""Bootstrap stratifié et intervalles de confiance — protocole CIF (1000 réplications)."""
+"""Bootstrap stratifié et intervalles de confiance — protocole CredLens (1000 réplications)."""
 
 from __future__ import annotations
 

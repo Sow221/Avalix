@@ -1,7 +1,7 @@
 """Environnement Alembic — migre le schéma PostgreSQL 16 (audit + registry).
 
 L'URL est lue depuis ``src/config/settings.py`` (``CREDLENS_DATABASE__URL``), source unique
-de configuration (principe cabinet : « aucun secret dans le code »).
+de configuration (principe : « aucun secret dans le code »).
 """
 
 from __future__ import annotations

@@ -1,6 +1,6 @@
 """Routes de l'API — /v1/health, /v1/predict, /v1/auth/token, /v1/score, /metrics.
 
-Exigences cabinet (Semaine 2) : endpoints versionnés, validation stricte ``extra="forbid"``
+Exigences : endpoints versionnés, validation stricte ``extra="forbid"``
 (schémas), rate limiting par client, authentification JWT. L'état (modèle, engine, config)
 est injecté par ``app.py`` via ``app.state`` (pattern d'injection de dépendances).
 """
@@ -179,7 +179,7 @@ async def _score_handlers(payload: ScoreRequest, request: Request, client: str) 
     "/lending-club/score",
     response_model=LendingClubScoreResponse,
     tags=["scoring-validation"],
-    summary="Démonstration du champion validé sur données publiques réelles (pas le pilote CIF)",
+    summary="Démonstration du champion validé sur données publiques réelles (pas le pilote synthétique)",
 )
 async def lending_club_score(
     payload: LendingClubScoreRequest,
@@ -188,7 +188,7 @@ async def lending_club_score(
 ) -> LendingClubScoreResponse:
     """Scoring via le modèle ``lending_club_champion`` (voir docs/validation/lending-club-benchmark.md).
 
-    Endpoint de démonstration méthodologique, distinct de ``/v1/predict`` (pilote CIF synthétique) :
+    Endpoint de démonstration méthodologique, distinct de ``/v1/predict`` (pilote synthétique) :
     schéma de features et policy différents, jamais à confondre dans une même réponse.
     """
     await _enforce_rate_limit(request, client)

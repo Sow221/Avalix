@@ -1,7 +1,7 @@
 [project]
 name = "credlens"
 version = "1.2.1"
-description = "CredLens — plateforme de scoring de crédit pour l'écosystème CIF/DigiCoop-WA+"
+description = "CredLens — plateforme de scoring de crédit pour l'zone UEMOA (SFD)"
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "Apache-2.0" }

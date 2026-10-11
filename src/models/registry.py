@@ -1,6 +1,6 @@
-"""Registry MLflow — enregistrement des modèles, stages, model cards (Semaine 4).
+"""Registry MLflow — enregistrement des modèles, stages, model cards.
 
-Objectif cabinet : « Modèle enregistré dans MLflow — mlflow ui montre le modèle ».
+Objectif : « Modèle enregistré dans MLflow — mlflow ui montre le modèle ».
 Ce module centralise l'enregistrement (depuis artifact joblib du prototype pilote ou depuis
 un re-entraînement reproductible), la transition de stage (Staging → Production → Archived)
 et la génération de la Model Card associée.
@@ -126,26 +126,27 @@ def register_from_joblib(
         owner="CredLens",
         contact="contact@credlens.example",
         intended_use=(
-            "Scoring de crédit (estimation de la probabilité de défaut) des clients CIF/DigiCoop-WA+ ; "
+            "Scoring de crédit (estimation de la probabilité de défaut) des clients d'institutions "
+            "de microfinance (SFD) ; "
             "décision finale sous revue humaine (human-in-the-loop) obligatoire."
         ),
-        target_population="Détenteurs de produits CIF/DigiCoop-WA+ (pilot synthétique et réel).",
+        target_population="Clients d'institutions de microfinance (SFD) de l'UEMOA (pilot synthétique et réel).",
         decision_thresholds=decision_thresholds,
         training_metrics=metrics,
         features=features,
         limitations=[
             "Modèle entraîné sur données synthétiques pour le pilot.",
             "Pas de décision contractuelle sans revue humaine (REVUE_HUMAINE).",
-            "À ré-entraîner sur les données réelles CIF (protocole shadow mode).",
+            "À ré-entraîner sur les données réelles de production (protocole shadow mode).",
             "Le générateur synthétique dérive toutes les features d'un facteur latent unique : "
             "le ROC-AUC observé (≈0.94) surestime structurellement la séparabilité attendue sur "
-            "données réelles, multi-causales et non stationnaires. À réévaluer sur données CIF réelles.",
+            "données réelles, multi-causales et non stationnaires. À réévaluer sur données réelles de production.",
         ],
         fairness_notes=(
             "Audit d'équité à reproduire sur données réelles (disparités par profil non fiabilisées "
             "sur données synthétiques)."
         ),
-        data_sources=["Prototype synthétique TELQAN (audit phases A-F)"],
+        data_sources=["Prototype synthétique CredLens"],
     )
     card_dir = Path(model_card_dir)
     card_dir.mkdir(parents=True, exist_ok=True)

@@ -300,7 +300,7 @@ lending_club_job = dg.define_asset_job(
 # produirait rien de nouveau. Mensuel se justifie par deux raisons réelles, pas décoratives :
 # (1) détecter une dérive de comportement silencieuse causée par une mise à jour de dépendance
 # (XGBoost, scikit-learn...) plutôt que de la découvrir des mois plus tard ; (2) c'est le point
-# de branchement déjà prêt pour le jour où de nouvelles cohortes de prêts (ou des données CIF
+# de branchement déjà prêt pour le jour où de nouvelles cohortes de prêts (ou des données réelles
 # réelles) remplacent ce jeu statique — remplacer la source de données suffit, le reste de la
 # chaîne (ingestion → validation → benchmark → promotion via alias champion/previous) est
 # inchangé. Remplace l'ancien pipelines/continuous_training.py (supprimé, voir CHANGELOG) qui

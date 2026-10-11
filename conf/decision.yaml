@@ -1,4 +1,4 @@
-# Policy de décision (séparée du modèle — cahier des charges §64)
+# Policy de décision (séparée du modèle)
 decision:
   approve_threshold: 0.10
   review_threshold: 0.25

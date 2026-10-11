@@ -1,4 +1,4 @@
-"""Tests du rapport de monitoring — PSI, alertes cabinet, drift Evidently (Semaine 4)."""
+"""Tests du rapport de monitoring — PSI, alerte, drift Evidently."""
 
 from __future__ import annotations
 

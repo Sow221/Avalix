@@ -4,7 +4,7 @@ apiVersion: 1
 providers:
   - name: CredLens
     orgId: 1
-    folder: CIF
+    folder: CredLens
     type: file
     disableDeletion: false
     updateIntervalSeconds: 30

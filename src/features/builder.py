@@ -4,7 +4,7 @@ Reconstruit le pipeline qui transforme les tables brutes ``customers`` +
 ``loans`` en la matrice des 25 features utilisées par le modèle officiel
 calibré (``MODEL_OFFICIAL_CALIBRATED``). C'est LA source de vérité : cette
 liste reproduit le ROC-AUC documenté (phase synthétique ≈ 0.83 / pipeline
-reproduit ≈ 0.87). Elle est alignée sur le dépôt de référence `cifci`.
+reproduit ≈ 0.87). Elle est alignée sur le implémentation de référence interne.
 
 Familles (utilisées par l'ablation study) :
 - profile_income : profil socio-démographique et revenu

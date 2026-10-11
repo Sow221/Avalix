@@ -7,7 +7,7 @@ voir `docs/validation/lending-club-benchmark.md`) · **Méthode** : `src/monitor
 
 Il prouve que le mécanisme de surveillance (dérive + performance retardée) **détecte réellement
 quelque chose** quand on le fait tourner sur de vraies données — pas seulement qu'il compile.
-Il ne prédit pas le comportement futur du modèle sur données CIF : c'est, comme le reste de la
+Il ne prédit pas le comportement futur du modèle sur données réelles : c'est, comme le reste de la
 validation Lending Club, une preuve de méthode.
 
 ## Méthode : deux indicateurs, deux disponibilités différentes

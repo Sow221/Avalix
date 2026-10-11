@@ -26,7 +26,7 @@ class FeatureConfig:
     target: str = "is_default"
     output_file: str = "features_prepared.parquet"
     # Les 25 features du MODÈLE OFFICIEL calibré (source de vérité unique, cf.
-    # `cifci`/MODEL_OFFICIAL_CALIBRATED). Organisées en 4 familles pour
+    # référence interne). Organisées en 4 familles pour
     # l'ablation study. Ne pas dériver : c'est la liste exacte qui reproduit
     # le ROC-AUC documenté du modèle officiel.
     families: dict[str, list[str]] = field(
@@ -70,7 +70,7 @@ class FeatureConfig:
 
 @dataclass
 class CalibrationConfig:
-    """Configuration de la calibration des probabilités (exigence §93 du cahier des charges)."""
+    """Configuration de la calibration des probabilités."""
 
     enabled: bool = True
     method: str = "isotonic"
@@ -86,7 +86,7 @@ class ModelConfig:
     random_state: int = 42
     n_trials: int = 30
     # Hyperparamètres XGBoost — alignés sur le modèle officiel calibré (dépôt de
-    # référence `cifci`) : profondeur 4, lr 0.03, 300 arbres (pas le défaut).
+    # référence interne) : profondeur 4, lr 0.03, 300 arbres (pas le défaut).
     xgboost: dict[str, float | int | str] = field(
         default_factory=lambda: {
             "max_depth": 4,
@@ -172,7 +172,7 @@ class LendingClubConfig:
     tuning_max_rows: int = 200_000
     seed: int = 42
     # Coûts économiques (dollars, illustratifs — même convention que decision.cost_* pour le
-    # pilote CIF : "unités monétaires arbitraires", pas une calibration métier réelle). Le défaut
+    # pilote synthétique : "unités monétaires arbitraires", pas une calibration métier réelle). Le défaut
     # non détecté coûte l'ordre de grandeur du principal moyen (~12 500 $, voir rapport de
     # validation) ; le refus d'un bon dossier coûte la marge nette perdue, estimée à ~15 %.
     cost_false_negative: float = 3_000.0

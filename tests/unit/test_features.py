@@ -1,4 +1,4 @@
-"""Tests unitaires des contrats de features (exigence cabinet : un test par feature)."""
+"""Tests unitaires des contrats de features (un test par feature)."""
 
 import pytest
 

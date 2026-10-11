@@ -1,8 +1,7 @@
-"""Rapport de monitoring complet — Evidently + PSI + alertes (Semaine 4).
+"""Rapport de monitoring complet — Evidently + PSI + alertes.
 
-Fichier exigé par le cabinet (retour.txt) : ``src/monitoring/drift_report.py``. Produit le
-rapport Evidently de dérive de données et la surveillance de dérive de population (PSI),
-puis évalue les alertes aux seuils du cabinet :
+Produit le rapport Evidently de dérive de données et la surveillance de dérive de population
+(PSI), puis évalue les alertes aux seuils configurés :
 ROC-AUC < 0.65, ECE > 0.10, PSI > 0.25, taux de features en drift >= 0.20.
 """
 
@@ -32,7 +31,7 @@ def psi_score(expected: np.ndarray, actual: np.ndarray, n_bins: int = 10) -> flo
     """Population Stability Index — mesure la dérive de distribution d'une variable.
 
     PSI = sum((act_ratio - ref_ratio) * log(act_ratio / ref_ratio)).
-    PSI > 0.25 = derive significative (alerte cabinet), 0.10 a 0.25 = moderee.
+    PSI > 0.25 = derive significative (alerte), 0.10 a 0.25 = moderee.
     """
     expected = np.asarray(expected, dtype=float)
     actual = np.asarray(actual, dtype=float)
@@ -66,7 +65,7 @@ def check_monitoring_alerts(
     metrics: dict[str, float],
     thresholds: dict[str, float] | None = None,
 ) -> dict[str, dict[str, Any]]:
-    """Confronte les métriques (roc_auc, ece, psi, drift_ratio) aux seuils du cabinet.
+    """Confronte les métriques (roc_auc, ece, psi, drift_ratio) aux seuils configurés.
 
     Returns:
         Dict {métrique: {value, threshold, alerted}} — une alerte True déclenche le reporting.

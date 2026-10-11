@@ -1,6 +1,6 @@
-"""Service d'audit — journalisation de chaque décision, prédiction et changement (Semaine 3).
+"""Service d'audit — journalisation de chaque décision, prédiction et changement.
 
-Exigence cabinet (retour.txt §1 « Traçabilité complète ») : chaque prédiction enregistrée
+Traçabilité complète : chaque prédiction enregistrée
 atomiquement (transaction unique) avec ID client, PD, confiance, décision, version du modèle,
 timestamp et features utilisées. L'écriture dans la même transaction garantit l'atomicité :
 si l'écriture échoue, la réponse API échoue aussi (aucune décision non tracée).

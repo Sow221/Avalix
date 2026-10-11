@@ -108,7 +108,7 @@ def run_benchmark(
     champion, challenger = (xgb, logistic) if xgb_wins else (logistic, xgb)
     logger.info("benchmark.champion", champion=champion.name, auc_diff=diff)
 
-    # Seuil de décision par coût (Model ≠ Policy, cf. ADR CIF §64) : calculé une seule fois sur
+    # Seuil de décision par coût (Model ≠ Policy, cf. ADR) : calculé une seule fois sur
     # le test, à partir du champion — jamais posé "à la main".
     champion_score = scores[champion.name]
     cost_threshold, expected_cost = optimal_cost_threshold(

@@ -1,4 +1,4 @@
-"""Middleware FastAPI — Request ID et Rate limiting par client (exigence cabinet, Semaine 2).
+"""Middleware FastAPI — Request ID et Rate limiting par client.
 
 - ``RequestIDMiddleware`` : garantit un identifiant de requête bout-en-bout (header
   ``X-Request-ID``, contextvars structlog) pour la traçabilité de l'audit trail.
@@ -136,7 +136,7 @@ class RedisRateLimiter:
             self._script = self._redis.register_script(_SLIDING_WINDOW_LUA)
         now = time.time()
         result = await self._script(
-            keys=[f"cif:ratelimit:{client}"],
+            keys=[f"credlens:ratelimit:{client}"],
             args=[now, self.window_seconds, self.rate_per_minute],
         )
         return bool(result)

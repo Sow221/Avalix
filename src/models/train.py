@@ -50,12 +50,12 @@ def temporal_split(
     order_col: str = "customer_id",
     split_date: float = 0.8,
 ) -> tuple[pd.DataFrame, pd.DataFrame, np.ndarray, np.ndarray]:
-    """Split TEMPOREL (protocole CIF) : l'ordre des lignes est l'ordre du temps.
+    """Split TEMPOREL (protocole CredLens) : l'ordre des lignes est l'ordre du temps.
 
-    Remplace le split aléatoire (interdit par la discipline CIF). NB : le jeu
+    Remplace le split aléatoire (interdit par la discipline CredLens). NB : le jeu
     synthétique ne porte pas de vraie date ; le proxy temporel est l'ordre des
     ``customer_id`` (les premiers contrats sont les plus anciens). À substituer
-    par une vraie colonne ``application_date`` sur les données CIF réelles.
+    par une vraie colonne ``application_date`` sur les données réelles de production.
 
     ``feature_cfg`` détermine la liste de colonnes utilisée ; par défaut la config
     officielle (25 features). La passer explicitement permet à l'ablation study de
@@ -77,7 +77,7 @@ def temporal_split(
 def train_split(
     df: pd.DataFrame, cfg: ModelConfig, target: str
 ) -> tuple[pd.DataFrame, pd.DataFrame, np.ndarray, np.ndarray]:
-    """Split train/test TEMPOREL reproductible (protocole CIF, jamais aléatoire)."""
+    """Split train/test TEMPOREL reproductible (protocole CredLens, jamais aléatoire)."""
     return temporal_split(df, cfg, target)
 
 
@@ -91,7 +91,7 @@ def make_model(cfg: ModelConfig, scale_pos_weight: float = 1.0) -> Any:
         eval_metric="aucpr",
     )
     if cfg.calibration.enabled:
-        # Calibration isotonique (exigence §93) : prédit des probabilités *bien calibrées*,
+        # Calibration isotonique : prédit des probabilités *bien calibrées*,
         # comparables entre clients et exploitables par le decision engine.
         return CalibratedClassifierCV(
             estimator=base,

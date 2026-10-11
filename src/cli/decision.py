@@ -22,7 +22,7 @@ logger = get_logger(__name__)
 @click.option("--model-uri", type=str, default=None, help="URI MLflow du modèle (défaut: registry).")
 @click.option("--out", type=str, default=None, help="Chemin de sortie JSON des décisions.")
 def main(data: str | None, model_uri: str | None, out: str | None) -> None:
-    """Applique le decision engine à un batch et trace chaque décision (audit §M08)."""
+    """Applique le decision engine à un batch et trace chaque décision."""
     cfg = load_config()
     mlflow.set_tracking_uri(cfg.model.mlflow_tracking_uri)
     path = data or f"{cfg.data.processed_dir}/{cfg.features.output_file}"

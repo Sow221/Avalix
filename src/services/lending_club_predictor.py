@@ -1,9 +1,9 @@
 """Service de scoring Lending Club — sert le champion enregistré (démonstration de la méthode).
 
-Distinct du ``Predictor`` du pilote CIF (modèle synthétique, 25 features, policy CIF §64) :
+Distinct du ``Predictor`` du pilote synthétique (modèle synthétique, 25 features, policy pilote) :
 ce service sert le modèle validé sur données publiques réelles (`ADR 0001-0003`), avec son
 propre schéma de features (18) et sa propre policy (seuil unique par coût, pas les 4 seuils
-CIF). Les deux ne doivent jamais être confondus dans les réponses de l'API.
+du pilote). Les deux ne doivent jamais être confondus dans les réponses de l'API.
 """
 
 from __future__ import annotations

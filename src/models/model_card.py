@@ -1,9 +1,8 @@
-"""Model Card — documentation de gouvernance du modèle (Semaine 4).
+"""Model Card — documentation de gouvernance du modèle.
 
-Fichier exigé par le cabinet (retour.txt) : ``src/models/model_card.py``. Une Model Card
-(référence : Mitchell et al., 2019) documente *intenté*, *mesure*, *données*, *biais*,
+Une Model Card (référence : Mitchell et al., 2019) documente *intenté*, *mesure*, *données*, *biais*,
 *limites* et *surveillance* — conditions d'une utilisation responsable en scoring de crédit
-(CIF Digital Platform §65 / directives de gouvernance de l'IA).
+(bonnes pratiques de gouvernance de l'IA).
 """
 
 from __future__ import annotations

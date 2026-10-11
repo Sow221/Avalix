@@ -1,4 +1,4 @@
-"""Tests de la discipline de split TEMPOREL (protocole CIF).
+"""Tests de la discipline de split TEMPOREL (protocole CredLens).
 
 Verrouille que l'entraînement n'utilise JAMAIS de split aléatoire : la coupure
 suit l'ordre temporel (proxy : ``customer_id`` croissant sur données

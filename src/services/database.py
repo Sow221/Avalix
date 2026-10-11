@@ -1,4 +1,4 @@
-"""Couche d'accès aux données — PostgreSQL 16 (audit trail + registry), exigence cabinet Semaine 3.
+"""Couche d'accès aux données — PostgreSQL 16 (audit trail + registry).
 
 Le schéma (customers, predictions, audit_log, model_versions) est défini ici en SQLAlchemy 2.0
 et versionné par Alembic dans ``migrations/``. Les types JSON sont portables : ``JSON`` sur
@@ -62,7 +62,7 @@ class Prediction(Base):
 
 
 class AuditLog(Base):
-    """Journal d'audit : chaque événement métier est tracé (traçabilité totale, principe §1)."""
+    """Journal d'audit : chaque événement métier est tracé (traçabilité totale)."""
 
     __tablename__ = "audit_log"
 

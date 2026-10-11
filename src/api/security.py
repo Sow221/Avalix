@@ -1,4 +1,4 @@
-"""Sécurité de l'API — authentification JWT et credentials clients (exigence cabinet : JWT).
+"""Sécurité de l'API — authentification JWT et credentials clients.
 
 Implémentation HS256 via PyJWT. Les secrets ne sont jamais commités : ils viennent de
 l'environnement (``CREDLENS_API_CLIENT_ID`` / ``CREDLENS_API_CLIENT_SECRET`` / ``CREDLENS__JWT_SECRET``)

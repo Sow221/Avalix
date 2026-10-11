@@ -1,11 +1,11 @@
-"""Calcul de la confiance d'une prédiction — exigence cabinet (Semaine 2, src/services/confidence.py).
+"""Calcul de la confiance d'une prédiction.
 
 La confiance exprime le degré de certitude de la décision : une probabilité *éloignée* de toutes
 les frontières de décision (seuils de la policy) est décidée avec une confiance élevée ; proche
 d'un seuil, la confiance chute (le cas est « ambiguous » et passera en revue humaine).
 
 Cette mesure est déterministe et entièrement traçable — elle alimente le champ ``confidence``
-de la réponse API et de l'audit trail (§M07).
+de la réponse API et de l'audit trail.
 """
 
 from __future__ import annotations

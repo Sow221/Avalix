@@ -1,6 +1,6 @@
-"""Tests d'intégration de l'audit trail — journalisation atomique des prédictions (Semaine 3).
+"""Tests d'intégration de l'audit trail — journalisation atomique des prédictions.
 
-Valide les exigences du cabinet (retour.txt §3.3) : chaque prédiction enregistrée avec
+Valide : chaque prédiction enregistrée avec
 ID client, PD, confiance, décision, version du modèle, timestamp et features utilisées ;
 les événements d'audit tracés (émission de jeton, prédictions). SQLite fichier en test
 (CI sans PostgreSQL) ; le schéma PostgreSQL 16 reste couvert par Alembic.

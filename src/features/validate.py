@@ -5,8 +5,8 @@ d'entraînement ni dans les requêtes de scoring. Si une variable qui encode la
 cible (ex : ``p_default_true``) ou une variable post-décision réapparaît, la
 validation échoue — l'entraînement s'arrête avant toute fuite.
 
-C'est le cœur méthodologique du protocole CIF (rejeté depuis le dépôt de
-référence `cifci` — see docs/). Aucune feature de fuite ne doit survivre ici.
+C'est le cœur méthodologique du protocole CredLens (rejeté depuis le dépôt de
+référence interne — see docs/). Aucune feature de fuite ne doit survivre ici.
 """
 
 from __future__ import annotations

@@ -1,6 +1,6 @@
-"""Tests d'intégration de l'API — JWT, rate limiting, endpoints versionnés (Semaine 2).
+"""Tests d'intégration de l'API — JWT, rate limiting, endpoints versionnés.
 
-Couvre les exigences du cabinet : authentification JWT, rate limiting par client,
+Couvre : authentification JWT, rate limiting par client,
 validation stricte extra="forbid", endpoints /v1/predict et /v1/health.
 """
 

@@ -1,4 +1,4 @@
-"""Decision Engine — sépare strictement Model / Policy / Workflow / Decision (cahier des charges §64).
+"""Decision Engine — sépare strictement Model / Policy / Workflow / Decision.
 
 Le modèle produit une probabilité ; la *policy* applique des seuils et règles (dont thin-file) ;
 le *workflow* détermine qui doit valider ; la *décision* finale est traçable.

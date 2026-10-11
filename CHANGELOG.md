@@ -68,7 +68,7 @@ déployé et vérifié de bout en bout — pas seulement testé en local.
   autour d'un seuil optimisé par coût (`evaluation/thresholds.py`, jamais posé à la main),
   explications exactes par variable (contribution linéaire pour le champion logistique,
   contributions XGBoost natives si un futur challenger XGBoost gagne). Distinct et jamais
-  mélangé avec `/v1/predict` (pilote CIF synthétique).
+  mélangé avec `/v1/predict` (pilote synthétique).
 - **Orchestration Dagster du pipeline Lending Club** (`lc_raw_available` → `lc_interim` →
   `lc_features` → `lc_benchmark`), visible dans l'UI aux côtés du pipeline synthétique existant.
 - **Déploiement public réel et vérifié** : https://credlens.onrender.com — image
@@ -95,7 +95,7 @@ déployé et vérifié de bout en bout — pas seulement testé en local.
 
 ### Corrigé
 Bugs réels, trouvés en exécutant chaque outil pour de vrai plutôt qu'en le supposant fonctionnel :
-- Modèle CIF synthétique et images de déploiement pointaient sur `models:/…/latest` au lieu de
+- Modèle pilote synthétique et images de déploiement pointaient sur `models:/…/latest` au lieu de
   `@champion` dans plusieurs modules (`api/app.py`, `pipelines/definitions.py`, `cli/decision.py`).
 - `/metrics` renvoyait du JSON au lieu du format texte Prometheus attendu par un vrai scraper.
 - `LendingClubScoreRequest.features` n'acceptait pas `null` pour une valeur numérique inconnue —
@@ -109,7 +109,7 @@ Bugs réels, trouvés en exécutant chaque outil pour de vrai plutôt qu'en le s
 
 ## [0.1.0] — antérieur
 
-Infrastructure MLOps sur prototype synthétique CIF : API FastAPI/JWT, feature engineering avec
+Infrastructure MLOps sur prototype synthétique : API FastAPI/JWT, feature engineering avec
 garde anti-fuite, entraînement XGBoost calibré, audit trail PostgreSQL, monitoring de dérive
 Evidently/Prometheus/Grafana, CI/CD, Terraform/Kubernetes (non déployés à ce stade). Voir
 l'historique Git antérieur à ce fichier pour le détail.

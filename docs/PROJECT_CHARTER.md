@@ -35,7 +35,7 @@ data & IA de son auteur.
 - Preuves : repo public soigné, démo cliquable, article LinkedIn.
 
 **Hors périmètre (explicite)**
-- Données réelles CIF (jamais eu accès → synthétique, assumé).
+- Données réelles de production (jamais eu accès → synthétique, assumé).
 - Décisions de crédit contractuelles (le système est un outil d'aide, human-in-the-loop obligatoire).
 - Multi-tiers / production 24/7 avec SLO payant (cible désignée mais non budgétée).
 
@@ -54,15 +54,15 @@ data & IA de son auteur.
 ## 5. Gouvernance du modèle
 
 - **Transparence** : model card (usage prévu, population cible, métriques, limites, équité) générée et versionnée.
-- **Honnêteté** : le ROC-AUC (synthétique) n'est **jamais** présenté comme un benchmark réel CIF.
-- **Décision** : model ≠ policy ≠ workflow ≠ décision (§64 du cahier) ; seuils documentés ; revue humaine pour REVUE_HUMAINE.
+- **Honnêteté** : le ROC-AUC (synthétique) n'est **jamais** présenté comme un benchmark réel de production.
+- **Décision** : model ≠ policy ≠ workflow ≠ décision (séparation stricte) ; seuils documentés ; revue humaine pour REVUE_HUMAINE.
 - **Auditabilité** : chaque prédiction, jeton émis et changement enregistré en base (customers, predictions, audit_log, model_versions).
 - **Monitoring** : alertes à seuils fixes (ROC-AUC < 0.65, ECE > 0.10, PSI > 0.25, drift ratio ≥ 0.20) + dashboards.
 
 ## 6. Architecture cible
 
 ```
-Clients (Agents CIF) → Cloudflare (WAF/HTTPS) → Ingress Nginx → API FastAPI (2 pods)
+Clients (Agents de crédit) → Cloudflare (WAF/HTTPS) → Ingress Nginx → API FastAPI (2 pods)
                                                           ├─ PostgreSQL 16 (audit + registry)
                                                           ├─ MLflow (tracking/registry)
                                                           └─ Prometheus + Grafana (métriques)

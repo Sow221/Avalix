@@ -1,6 +1,6 @@
 """Schémas d'entrée/sortie de l'API de scoring (Pydantic v2).
 
-Validation stricte : ``extra="forbid"`` sur tous les modèles (exigence cabinet) —
+Validation stricte : ``extra="forbid"`` sur tous les modèles —
 toute donnée inconnue est rejetée avec un 422 détaillé.
 """
 
@@ -43,7 +43,7 @@ class ScoreResponse(StrictModel):
 class LendingClubScoreRequest(StrictModel):
     """Requête de scoring — démonstration du champion validé sur données publiques réelles.
 
-    Distinct de ``ScoreRequest`` (pilote CIF synthétique) : schéma et policy propres au modèle
+    Distinct de ``ScoreRequest`` (pilote synthétique) : schéma et policy propres au modèle
     ``lending_club_champion`` (voir ``docs/validation/lending-club-benchmark.md``).
     """
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Deploiement automatise CIF : Terraform (VM K3s OCI) + apply K8s + healthcheck.
+# Deploiement automatise CredLens : Terraform (VM K3s OCI) + apply K8s + healthcheck.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 

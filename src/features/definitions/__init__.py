@@ -1,4 +1,4 @@
-"""Registre des contrats de features (exigence cabinet : un fichier par feature).
+"""Registre des contrats de features (un fichier par feature).
 
 Ce module agrège les 25 contrats — les features du MODÈLE OFFICIEL calibré — et
 expose ``validate_feature_contracts`` qui garantit la cohérence entre les

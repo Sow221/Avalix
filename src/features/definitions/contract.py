@@ -1,4 +1,4 @@
-"""Contrat des features — exigence cabinet : nom, version, description, bornes valides, propriétaire, SLA.
+"""Contrat des features — nom, version, description, bornes valides, propriétaire, SLA.
 
 Chaque feature dispose d'un fichier dédié dans ``features/definitions/``. Le calcul reste
 centralisé dans ``features/builder.py`` (aucune formule dupliquée) ; le contrat versionne le

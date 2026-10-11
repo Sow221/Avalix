@@ -1,4 +1,4 @@
-# Terraform — Provisionnement de l'infrastructure CIF sur Oracle Cloud Free Tier
+# Terraform — Provisionnement de l'infrastructure CredLens sur Oracle Cloud Free Tier
 # (Always-Free: VM.Standard.A1.Flex ARM 4 OCPU / 24 Go + K3s).
 #
 # Périmètre de ce fichier : provisionner la VM et installer K3s dessus. Rien de plus —

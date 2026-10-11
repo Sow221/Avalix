@@ -1,6 +1,6 @@
 version: "3.8"
 
-# Stack d'observabilité standard (Prometheus + Grafana) scrapant l'API CIF.
+# Stack d'observabilité standard (Prometheus + Grafana) scrapant l'API CredLens.
 # Usage : docker compose -f infra/observability/docker-compose.yml up
 services:
   api:

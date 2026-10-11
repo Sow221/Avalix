@@ -1,4 +1,4 @@
-"""Métriques d'évaluation alignées sur le protocole CIF (ROC/PR/Brier/LogLoss/Calibration)."""
+"""Métriques d'évaluation alignées sur le protocole CredLens (ROC/PR/Brier/LogLoss/Calibration)."""
 
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ from sklearn.metrics import (
 
 
 def compute_all_metrics(y_true: np.ndarray, y_prob: np.ndarray) -> dict[str, float]:
-    """Calcule le jeu complet de métriques du protocole de validation CIF.
+    """Calcule le jeu complet de métriques du protocole de validation CredLens.
 
     Args:
         y_true: étiquettes binaires réelles.

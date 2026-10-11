@@ -7,7 +7,7 @@
 
 Il valide la **méthode** (split temporel réel, baseline honnête, calibration, sélection par
 preuve statistique) sur des données de crédit réelles. **Il ne dit rien de la performance
-attendue sur le portefeuille CIF** : Lending Club est du crédit à la consommation américain
+attendue sur le portefeuille réel de production** : Lending Club est du crédit à la consommation américain
 entre particuliers (2009-2015), pas de la microfinance ouest-africaine.
 
 ## Périmètre et découpage
@@ -72,4 +72,4 @@ cat reports/lending_club/metrics.json
 
 Servir le champion (logistique) dans l'API de démonstration à la place du XGBoost synthétique,
 avec seuils fixés par coût (`src/evaluation/thresholds.py`) plutôt qu'à la main, et explications
-par variable. Réentraîner sur données CIF dès qu'elles existent, via le même pipeline.
+par variable. Réentraîner sur données réelles dès qu'elles existent, via le même pipeline.

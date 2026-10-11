@@ -15,7 +15,7 @@ Les données sont reproductibles par script et, à terme, versionnées par DVC.
 
 Sert à valider la **méthode** (split temporel, baseline, monitoring) sur de vraies données.
 Il s'agit de crédit américain entre particuliers : il ne renseigne pas sur la performance
-attendue sur le portefeuille CIF.
+attendue sur le portefeuille réel de production.
 
 ### Télécharger
 

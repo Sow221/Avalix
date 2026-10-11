@@ -1,7 +1,7 @@
 """Tests de la garde anti-leakage et du contrat des 25 features.
 
 Verrouille le comportement défensif de la pipeline (porté depuis le dépôt de
-référence `cifci`) : aucune variable de fuite ne doit entrer dans les features,
+référence interne) : aucune variable de fuite ne doit entrer dans les features,
 ni être émise par le générateur, ni être acceptée par l'API. Le jeu de features
 doit être exactement de la taille annoncée (25 + id + cible).
 """

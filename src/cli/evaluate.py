@@ -76,7 +76,7 @@ def main(
     if ablation:
         final["ablation"] = run_ablation(df, cfg.model, cfg.features, seed=cfg.model.random_state)
 
-    # Verdict GO/NO-GO selon le protocole CIF
+    # Verdict GO/NO-GO selon le protocole CredLens
     roc = float(final["base_metrics"]["roc_auc"])
     ece = float(final["base_metrics"]["ece"])
     decision_gate = "GO" if (roc >= cfg.evaluation.go_roc_auc and ece <= cfg.evaluation.ece_threshold) else "NO-GO"

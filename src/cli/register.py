@@ -1,4 +1,4 @@
-"""CLI : credlens-register-model — enregistre le modèle officiel pilote dans le registry MLflow (Semaine 4).
+"""CLI : credlens-register-model — enregistre le modèle officiel pilote dans le registry MLflow.
 
 Usage : credlens-register-model [--version 1.0.0] [--artifact <chemins>]
 Priorité au fichier ``CREDLENS_MODEL_ARTIFACT`` (env), sinon recherche locale du
@@ -25,13 +25,6 @@ from models.train import feature_columns
 from utils.logging import get_logger
 
 logger = get_logger(__name__)
-
-_CANDIDATE_DIRS = [
-    "CREDLENS_CREDIT_INTELLIGENCE-20260817T205307Z-1-001/CREDLENS_CREDIT_INTELLIGENCE/02_MODELS/trained",
-    "../CREDLENS_CREDIT_INTELLIGENCE-20260817T205307Z-1-001/CREDLENS_CREDIT_INTELLIGENCE/02_MODELS/trained",
-    "data/artifacts",
-]
-
 
 @click.command()
 @click.option("--version", default="1.0.0", help="Version sémantique du modèle.")
@@ -61,7 +54,7 @@ def main(version: str, artifact: str | None, metrics_json: str | None, stage: st
 
         metrics = {k: float(v) for k, v in json.loads(metrics_json).items()}
     else:
-        # Split TEMPOREL obligatoire (protocole CIF) — jamais de split aléatoire, y
+        # Split TEMPOREL obligatoire (protocole CredLens) — jamais de split aléatoire, y
         # compris pour la métrique de registration. Aucune valeur par défaut fabriquée :
         # si les métriques ne peuvent pas être calculées, l'enregistrement échoue explicitement
         # plutôt que de publier un chiffre inventé dans le model card.
