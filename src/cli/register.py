@@ -26,6 +26,7 @@ from utils.logging import get_logger
 
 logger = get_logger(__name__)
 
+
 @click.command()
 @click.option("--version", default="1.0.0", help="Version sémantique du modèle.")
 @click.option("--artifact", type=str, default=None, help="Chemin direct du joblib (sinon recherche auto).")
